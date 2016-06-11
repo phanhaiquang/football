@@ -1,1 +1,1 @@
-json.extract! @team, :id, :name, :score, :coach, :created_at, :updated_at
+json.extract! @team, :id, :name, :score, :status, :coach, :created_at, :updated_at

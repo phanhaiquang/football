@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160611070743) do
+ActiveRecord::Schema.define(version: 20160611075008) do
 
   create_table "matches", force: :cascade do |t|
     t.integer  "team1_id"
@@ -20,8 +20,10 @@ ActiveRecord::Schema.define(version: 20160611070743) do
     t.integer  "mainscore2"
     t.integer  "subscore1"
     t.integer  "subscore2"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "status",     default: false
+    t.datetime "time"
   end
 
   create_table "predictions", force: :cascade do |t|
@@ -40,8 +42,9 @@ ActiveRecord::Schema.define(version: 20160611070743) do
     t.string   "name"
     t.integer  "score"
     t.string   "coach"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.boolean  "status",     default: true
   end
 
   create_table "users", force: :cascade do |t|

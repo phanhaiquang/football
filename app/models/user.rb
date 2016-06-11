@@ -5,4 +5,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :predictions
+
+  def update_score
+    score = 0
+    current_user.predictions.each do |prediction|
+      score += prediction.win?    ? 2 :
+               prediction.subwin? ? 1 : 0
+    end
+    update_attributes(score: score)
+  end
 end

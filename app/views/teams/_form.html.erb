@@ -16,8 +16,8 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :score %><br>
-    <%= f.number_field :score %>
+    <%= f.label :status %><br>
+    <%= f.select :status, [['Playing', true], ['Stopped': false]] %>
   </div>
   <div class="field">
     <%= f.label :coach %><br>

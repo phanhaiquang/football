@@ -20,6 +20,14 @@
     <%= f.collection_select :team2_id, Team.all, :id, :name %>
   </div>
   <div class="field">
+    <%= f.label :time %><br>
+    <%= f.datetime_select :time %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.select :time, [['Open', false], ['Closed', true]] %>
+  </div>
+  <div class="field">
     <%= f.label :mainscore1 %><br>
     <%= f.number_field :mainscore1 %>
   </div>
