@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :predictions
   devise_for :users
   resources :matches
   resources :teams

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Match:</strong>
+  <%= @prediction.match %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @prediction.user %>
+</p>
+
+<p>
+  <strong>Mainscore1:</strong>
+  <%= @prediction.mainscore1 %>
+</p>
+
+<p>
+  <strong>Mainscore2:</strong>
+  <%= @prediction.mainscore2 %>
+</p>
+
+<%= link_to 'Edit', edit_prediction_path(@prediction) %> |
+<%= link_to 'Back', predictions_path %>
