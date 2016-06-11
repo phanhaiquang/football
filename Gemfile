@@ -46,3 +46,7 @@ group :development, :test do
   gem 'spring'
 end
 
+group :development do
+  gem 'seed_dump'
+end
+
