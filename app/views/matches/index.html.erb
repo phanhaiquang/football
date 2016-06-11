@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>#</th>
       <th>Team1</th>
       <th>Team2</th>
       <th>Time</th>
@@ -18,11 +19,12 @@
   </thead>
 
   <tbody>
-    <% @matches.each do |match| %>
+    <% @matches.each_with_index do |match, index| %>
       <tr>
+        <td><%= index+1 %></td>
         <td><%= match.team1.name %></td>
         <td><%= match.team2.name %></td>
-        <td><%= match.time %></td>
+        <td><%= match.time.to_s(:time) %></td>
         <td><%= match.status %></td>
         <td><%= match.mainscore1 %></td>
         <td><%= match.mainscore2 %></td>

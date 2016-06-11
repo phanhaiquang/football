@@ -12,7 +12,7 @@
 
 <p>
   <strong>Time</strong>
-  <%= @match.Time %>
+  <%= @match.time %>
 </p>
 
 <p>
@@ -41,4 +41,5 @@
 </p>
 
 <%= link_to 'Edit', edit_match_path(@match) %> |
-<%= link_to 'Back', matches_path %>
+<%= link_to 'Back', matches_path %> |
+<%= link_to 'New Match', new_match_path %>
