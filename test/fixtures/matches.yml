@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team1_id: 
+  team2_id: 
+  mainscore1: 1
+  mainscore2: 1
+  subscore1: 1
+  subscore2: 1
+
+two:
+  team1_id: 
+  team2_id: 
+  mainscore1: 1
+  mainscore2: 1
+  subscore1: 1
+  subscore2: 1
