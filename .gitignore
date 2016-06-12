@@ -18,3 +18,5 @@
 
 # rubymines
 .idea
+
+*.old
