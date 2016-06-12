@@ -5,7 +5,7 @@ class Prediction < ActiveRecord::Base
   validate :validate_match
 
   def validate_match
-    errors.add(:match, ' started !!!') if match.started?
+    errors.add(:match, ' started !!!') if match.started? && !ENV["SKIP_VALIDATION"]
   end
 
   def locked?
