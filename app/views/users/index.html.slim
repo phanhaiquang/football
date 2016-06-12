@@ -6,9 +6,10 @@ table.table
     td Player
     td Scores
   - @users.each_with_index do |user, index|
-    td =index+1
-    td =user.name
-    td =user.score
+    tr
+      td =index+1
+      td =user.name
+      td =user.score
 
 h4 Detail result for each match
 
@@ -25,7 +26,8 @@ table.table
           td =match.mainscores
           - User.all.each do |user|
             - p = Prediction.find_by(match: match, user: user)
-            td ="#{p.mainscores} (#{p.score} point)"
+            - if p.present?
+              td ="#{p.mainscores} (#{p.score} point)"
   tr
     td
     td
