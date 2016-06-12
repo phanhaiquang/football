@@ -1,4 +1,5 @@
 class PredictionsController < ApplicationController
+  load_and_authorize_resource param_method: :prediction_params
   before_action :set_prediction, only: [:show, :edit, :update, :destroy]
 
   # GET /predictions

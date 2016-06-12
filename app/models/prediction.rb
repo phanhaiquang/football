@@ -8,6 +8,14 @@ class Prediction < ActiveRecord::Base
     errors.add(:match, ' started !!!') if match.started?
   end
 
+  def locked?
+    match.started?
+  end
+
+  def open?
+    !locked?
+  end
+
   def closed?
     match.closed?
   end

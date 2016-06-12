@@ -2,7 +2,7 @@
 
 <h1>Listing Matches</h1>
 
-<table class="table btn-disabled">
+<table class="table">
   <thead>
     <tr>
       <th>#</th>
@@ -17,7 +17,7 @@
 
   <tbody>
     <% @matches.each_with_index do |match, index| %>
-      <tr class="match" href="<%= edit_match_path(match) %>">
+      <tr class="hoverable <%= can?(:edit, match)? 'clickable' : ''%>" href="<%= edit_match_path(match) %>">
         <td><%= index+1 %></td>
         <td><%= match.name %></td>
         <td><%= match.time.to_s(:match) %></td>
@@ -25,9 +25,15 @@
         <td><%= match.mainscores %></td>
         <td><%= match.prediction_winners.map(&:name).join(", ") %></td>
         <td class="text-right">
-          <%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger btn-one-col' %>
-          <%= link_to 'Edit', edit_match_path(match), class: 'btn btn-xs btn-warning btn-one-col btn-enabled' %>
-          <%= link_to 'Show', match, class: 'btn btn-xs btn-success btn-one-col' %>
+          <% if can?(:destroy, match) %>
+            <%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger btn-one-col' %>
+          <% end %>
+          <% if can?(:edit, match) %>
+            <%= link_to 'Edit', edit_match_path(match), class: 'btn btn-xs btn-warning btn-one-col btn-enabled' %>
+          <% end %>
+          <% if can?(:read, match) %>
+            <%= link_to 'Show', match, class: 'btn btn-xs btn-success btn-one-col' %>
+          <% end %>
         </td>
       </tr>
     <% end %>
@@ -36,4 +42,6 @@
 
 <hr></hr>
 
-<%= link_to 'New Match', new_match_path, class: "btn btn-primary" %>
+<% if can?(:create, Match) %>
+  <%= link_to 'New Match', new_match_path, class: "btn btn-primary" %>
+<% end %>

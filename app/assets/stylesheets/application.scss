@@ -3,7 +3,7 @@
 @import 'shared/base';
 @import 'shared/modalsearch';
 
-.match:hover {
+.hoverable:hover {
   background-color: lightblue;
 }
 
@@ -19,3 +19,7 @@
   color: red;
 }
 
+.alert-error {
+  color: red;
+  background-color: yellow;
+}

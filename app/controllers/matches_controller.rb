@@ -1,4 +1,5 @@
 class MatchesController < ApplicationController
+  load_and_authorize_resource param_method: :match_params
   before_action :set_match, only: [:show, :edit, :update, :destroy]
 
   # GET /matches

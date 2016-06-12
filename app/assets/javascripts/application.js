@@ -21,10 +21,7 @@
         $('.btn-disabled .btn').attr("disabled",true);
         $('.btn-disabled .btn-enabled').attr("disabled",false);
     })
-    .on('click', '.match', function(){
-        window.location.href=$(this).attr('href');
-    })
-    .on('click', '.prediction.btn-enabled', function(){
+    .on('click', '.clickable', function(){
         window.location.href=$(this).attr('href');
     })
 
