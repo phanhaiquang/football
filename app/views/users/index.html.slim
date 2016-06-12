@@ -1,3 +1,5 @@
+h4 User total score
+
 table.table
   tr
     td #
@@ -7,3 +9,26 @@ table.table
     td =index+1
     td =user.name
     td =user.score
+
+h4 Detail result for each match
+
+table.table
+  tr
+    td.col-xs-2 Match
+    td.col-xs-1 Result
+    - User.all.each do |user|
+      td.col-xs-1 =user.name
+    - Match.all.each do |match|
+      - if match.closed?
+        tr
+          td =match.short_name
+          td =match.mainscores
+          - User.all.each do |user|
+            - p = Prediction.find_by(match: match, user: user)
+            td ="#{p.mainscores} (#{p.score} point)"
+  tr
+    td
+    td
+    - User.all.each do |user|
+      td.user-score =user.score
+

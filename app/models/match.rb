@@ -11,6 +11,10 @@ class Match < ActiveRecord::Base
     team1.name + ' vs ' + team2.name + " (#{time.to_s(:match)})"
   end
 
+  def short_name
+    team1.name + ' vs ' + team2.name
+  end
+
   def mainscores
     "#{mainscore1} - #{mainscore2}"
   end
