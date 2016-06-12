@@ -15,7 +15,7 @@
   <tbody>
     <% @predictions.each do |prediction| %>
       <tr class="hoverable <%= can?(:edit, prediction) && prediction.open? ? 'clickable' : ''%>" href="<%= edit_prediction_path(prediction)%>">
-        <td><%= prediction.match.name %></td>
+        <td><%= render "shared/match_name", match: prediction.match %></td>
         <td><%= prediction.closed? ? "#{prediction.match.mainscore1} - #{prediction.match.mainscore2}" : "Not available" %></td>
         <td><%= prediction.user.name %></td>
         <td><%= prediction.mainscores %></td>

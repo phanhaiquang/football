@@ -14,7 +14,7 @@
   <tbody>
     <% @teams.each do |team| %>
       <tr>
-        <td><%= team.name %></td>
+        <td><%= render("shared/team_name", team: team) %></td>
         <td><%= team.score %></td>
         <td><%= team.status %></td>
         <td><%= team.coach %></td>

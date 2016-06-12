@@ -17,7 +17,7 @@
     <% @matches.each_with_index do |match, index| %>
       <tr class="hoverable <%= can?(:edit, match)? 'clickable' : ''%>" href="<%= edit_match_path(match) %>">
         <td><%= index+1 %></td>
-        <td><%= match.name %></td>
+        <td><%= render "shared/match_name", match: match %></td>
         <td><%= match.time.to_s(:match) %></td>
         <td><%= match.closed? ? 'Finished' : '' %></td>
         <td><%= match.mainscores %></td>

@@ -21,7 +21,7 @@ table.table
     - Match.all.each do |match|
       - if match.closed?
         tr
-          td =match.short_name
+          td =render "shared/match_name", match: match
           td =match.mainscores
           - User.all.each do |user|
             - p = Prediction.find_by(match: match, user: user)

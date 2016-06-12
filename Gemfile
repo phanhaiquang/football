@@ -26,6 +26,8 @@ gem 'slim', '~> 3.0'
 gem 'bootstrap-sass'
 gem 'cancancan'
 gem 'pg'                                      # postgres
+gem 'countries'
+gem 'flag-icon-sass'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
