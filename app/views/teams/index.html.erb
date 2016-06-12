@@ -2,7 +2,7 @@
 
 <h1>Listing Teams</h1>
 
-<table>
+<table class="table btn-disabled">
   <thead>
     <tr>
       <th>Name</th>
@@ -20,14 +20,16 @@
         <td><%= team.score %></td>
         <td><%= team.status %></td>
         <td><%= team.coach %></td>
-        <td><%= link_to 'Show', team %></td>
-        <td><%= link_to 'Edit', edit_team_path(team) %></td>
-        <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="text-right">
+          <%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col' %>
+          <%= link_to 'Edit', edit_team_path(team), class: 'btn btn-warning btn-xs btn-one-col' %>
+          <%= link_to 'Show', team, class: 'btn btn-success btn-xs btn-one-col' %>
+      </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<hr></hr>
 
-<%= link_to 'New Team', new_team_path %>
+<%= link_to 'New Team', new_team_path, class: 'btn btn-primary disabled' %>

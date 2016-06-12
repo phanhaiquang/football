@@ -1,0 +1,35 @@
+.modal-show {
+  display: none;
+}
+
+.modal-dialog {
+  min-width: 80%;
+
+  &.modal-md {
+    min-width: 650px;
+  }
+
+  .modal-show {
+    display: table-cell;
+  }
+
+  .modal-hide {
+    display: none;
+  }
+
+  table tr {
+    span.radio {
+      padding-top: 0;
+      min-height: inherit;
+    }
+
+    input.radio_buttons, input.checkbox {
+      height: inherit;
+      width: auto;
+    }
+
+    td.remove_association {
+      display: none;
+    }
+  }
+}

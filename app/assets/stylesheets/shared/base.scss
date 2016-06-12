@@ -1,0 +1,210 @@
+// vars for padding and margin
+$sizes  : ((nil, 0px), (xs, 5px), (sm, 10px), (md, 20px), (lg, 40px));
+$corners: (top, right, bottom, left);
+
+// margin
+// .mar-sm-top    { margin-top: 10px }
+// .mar-md-top    { margin-top: 20px }
+// .mar-lg-top    { margin-top: 40px }
+// .mar-sm-right  { margin-right: 10px }
+// .mar-md-right  { margin-right: 20px }
+// .mar-lg-right  { margin-right: 40px }
+// .mar-sm-bottom { margin-bottom: 10px }
+// .mar-md-bottom { margin-bottom: 20px }
+// .mar-lg-bottom { margin-bottom: 40px }
+// .mar-sm-left   { margin-left: 10px }
+// .mar-md-left   { margin-left: 20px }
+// .mar-lg-left   { margin-left: 40px }
+@each $size in $sizes {
+  @each $corner in $corners {
+    .mar-#{nth($size, 1)}-#{$corner} {
+      margin-#{$corner}: #{nth($size, 2)};
+    }
+  }
+}
+
+// padding
+// .pad-sm-top    { padding-top: 10px }
+// .pad-md-top    { padding-top: 20px }
+// .pad-lg-top    { padding-top: 40px }
+// .pad-sm-right  { padding-right: 10px }
+// .pad-md-right  { padding-right: 20px }
+// .pad-lg-right  { padding-right: 40px }
+// .pad-sm-bottom { padding-bottom: 10px }
+// .pad-md-bottom { padding-bottom: 20px }
+// .pad-lg-bottom { padding-bottom: 40px }
+// .pad-sm-left   { padding-left: 10px }
+// .pad-md-left   { padding-left: 20px }
+// .pad-lg-left   { padding-left: 40px }
+@each $size in $sizes {
+  @each $corner in $corners {
+    .pad-#{nth($size, 1)}-#{$corner} {
+      padding-#{$corner}: #{nth($size, 2)};
+    }
+  }
+}
+
+.none {
+  display: none;
+}
+
+.form-full {
+  @extend .col-sm-12;
+}
+
+.form-left {
+  @extend .col-sm-3;
+}
+
+.form-left-offset {
+  @extend .col-sm-offset-3;
+}
+
+.form-right {
+  @extend .col-sm-9;
+}
+
+body > .content {
+  min-height: 550px;
+  padding-bottom: 5em;
+}
+
+.btn-one-col {
+  @extend .pull-right;
+  width: 60px;
+  margin-bottom: 5px;
+  margin-right: 3px;
+}
+
+// Override bootstrap pagination
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+  color: #d3d3d3;
+  background-color: #f3f3f3;
+
+  cursor: default;
+}
+
+.pagination a {
+  font-weight: bold;
+}
+
+// Override select2 height state
+.select2-container {
+  .select2-choice {
+    height: 32px;
+    padding: 3px 12px;
+  }
+}
+
+// Override select2 disabled state
+.select2-container.select2-container-disabled {
+  .select2-choice {
+    border: none;
+    background-color: #eeeeee;
+
+    color: #555555;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+
+    cursor: not-allowed;
+
+    .select2-arrow {
+      display: none;
+    }
+  }
+}
+
+table.table {
+  tbody tr {
+    input, select, textarea {
+      @extend .form-control;
+    }
+    textarea {
+      height: 2.4em;
+    }
+    &.vertical-middle {
+      td, th {
+        vertical-align: middle;
+      }
+    }
+    td {
+      vertical-align: top;
+      &.narrow {
+        width: 3em;
+        .remove_fields {
+          margin-top: 7px;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+form.readonly {
+  .remove_association {
+    display: none;
+  }
+}
+
+ul.dropdown-menu  {
+  padding-bottom: 0;
+
+  button {
+    background: none;
+    border: 0;
+    border-radius: 0;
+
+    // @extend .dropdown-menu > li > a;
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #333333;
+    white-space: nowrap;
+  }
+
+  .reference_customer {
+    background: #f5f5f5;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+    margin-top: 5px;
+    font-size: 10px;
+    padding: 5px;
+  }
+}
+
+
+.table.unbordered-table {
+  th, td {
+    border-top: none;
+  }
+}
+
+.panel.panel-no-background {
+  background: transparent;
+}
+
+.wrap-in-pdf {
+  word-wrap: break-word;
+  width: 670px;
+}
+
+// customers autocomplete (address)
+.select2-highlighted .text-muted {
+  color: white;
+}
+
+body .select2-results {
+  max-height: 400px;
+}
+
+form table tr input.checkbox {
+  height: inherit;
+  width: auto;
+}

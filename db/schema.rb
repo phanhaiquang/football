@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160611075008) do
+ActiveRecord::Schema.define(version: 20160611114436) do
 
   create_table "matches", force: :cascade do |t|
     t.integer  "team1_id"
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 20160611075008) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "predictions", ["match_id"], name: "index_predictions_on_match_id"
-  add_index "predictions", ["user_id"], name: "index_predictions_on_user_id"
+  add_index "predictions", ["match"], name: "index_predictions_on_match"
+  add_index "predictions", ["user"], name: "index_predictions_on_user"
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20160611075008) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "score",                  default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

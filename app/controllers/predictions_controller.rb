@@ -15,6 +15,7 @@ class PredictionsController < ApplicationController
   # GET /predictions/new
   def new
     @prediction = Prediction.new
+    @prediction.user_id = current_user.id
   end
 
   # GET /predictions/1/edit
@@ -25,6 +26,7 @@ class PredictionsController < ApplicationController
   # POST /predictions.json
   def create
     @prediction = Prediction.new(prediction_params)
+    @prediction.user_id = current_user.id
 
     respond_to do |format|
       if @prediction.save
@@ -69,6 +71,6 @@ class PredictionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def prediction_params
-      params.require(:prediction).permit(:match_id_id, :user_id_id, :mainscore1, :mainscore2)
+      params.require(:prediction).permit(:match_id, :mainscore1, :mainscore2)
     end
 end

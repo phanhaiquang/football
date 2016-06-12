@@ -11,39 +11,42 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :team1_id %><br>
-    <%= f.collection_select :team1_id, Team.all, :id, :name %>
-  </div>
-  <div class="field">
-    <%= f.label :team2_id %><br>
-    <%= f.collection_select :team2_id, Team.all, :id, :name %>
-  </div>
-  <div class="field">
-    <%= f.label :time %><br>
-    <%= f.datetime_select :time %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.select :time, [['Open', false], ['Closed', true]] %>
-  </div>
-  <div class="field">
-    <%= f.label :mainscore1 %><br>
-    <%= f.number_field :mainscore1 %>
-  </div>
-  <div class="field">
-    <%= f.label :mainscore2 %><br>
-    <%= f.number_field :mainscore2 %>
-  </div>
-  <div class="field">
-    <%= f.label :subscore1 %><br>
-    <%= f.number_field :subscore1 %>
-  </div>
-  <div class="field">
-    <%= f.label :subscore2 %><br>
-    <%= f.number_field :subscore2 %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <fieldset class="col-xs-6">
+    <div class="field form-group">
+      <%= f.label :team1_id, class: "form-left" %>
+      <%= f.collection_select :team1_id, Team.all, :id, :name, class: "form-right" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :team2_id, class: "form-left" %>
+      <%= f.collection_select :team2_id, Team.all, :id, :name, class: "form-right" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :time, class: "form-left" %>
+      <%= f.datetime_select :time, class: "form-right" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :status, class: "form-left" %>
+      <%= f.select :status, [['Open', false], ['Closed', true]], class: "form-right" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :mainscore1, class: "form-left" %>
+      <%= f.number_field :mainscore1, class: "form-right" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :mainscore2, class: "form-left" %>
+      <%= f.number_field :mainscore2, class: "form-right" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :subscore1, class: "form-left" %>
+      <%= f.number_field :subscore1, class: "form-right" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :subscore2, class: "form-left" %>
+      <%= f.number_field :subscore2, class: "form-right" %>
+    </div>
+    <br></br>
+    <div class="actions">
+      <%= f.submit 'Submit', class: "btn btn-primary" %>
+    </div>
+  </fieldset>
 <% end %>

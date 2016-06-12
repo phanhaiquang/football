@@ -2,42 +2,38 @@
 
 <h1>Listing Matches</h1>
 
-<table>
+<table class="table btn-disabled">
   <thead>
     <tr>
       <th>#</th>
-      <th>Team1</th>
-      <th>Team2</th>
+      <th>Match</th>
       <th>Time</th>
       <th>Status</th>
-      <th>Mainscore1</th>
-      <th>Mainscore2</th>
-      <th>Subscore1</th>
-      <th>Subscore2</th>
+      <th>Score</th>
+      <th>Winner(s)</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @matches.each_with_index do |match, index| %>
-      <tr>
+      <tr class="match" href="<%= edit_match_path(match) %>">
         <td><%= index+1 %></td>
-        <td><%= match.team1.name %></td>
-        <td><%= match.team2.name %></td>
-        <td><%= match.time.to_s(:time) %></td>
-        <td><%= match.status %></td>
-        <td><%= match.mainscore1 %></td>
-        <td><%= match.mainscore2 %></td>
-        <td><%= match.subscore1 %></td>
-        <td><%= match.subscore2 %></td>
-        <td><%= link_to 'Show', match %></td>
-        <td><%= link_to 'Edit', edit_match_path(match) %></td>
-        <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= match.name %></td>
+        <td><%= match.time.to_s(:match) %></td>
+        <td><%= match.closed? ? 'Finished' : '' %></td>
+        <td><%= match.mainscores %></td>
+        <td><%= match.prediction_winners.map(&:name).join(", ") %></td>
+        <td class="text-right">
+          <%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger btn-one-col' %>
+          <%= link_to 'Edit', edit_match_path(match), class: 'btn btn-xs btn-warning btn-one-col btn-enabled' %>
+          <%= link_to 'Show', match, class: 'btn btn-xs btn-success btn-one-col' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<hr></hr>
 
-<%= link_to 'New Match', new_match_path %>
+<%= link_to 'New Match', new_match_path, class: "btn btn-primary" %>

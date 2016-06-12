@@ -6,9 +6,13 @@ class User < ActiveRecord::Base
 
   has_many :predictions
 
+  def name
+    email.gsub(/@.*/, '')
+  end
+
   def update_score
     score = 0
-    current_user.predictions.each do |prediction|
+    self.predictions.each do |prediction|
       score += prediction.win?    ? 2 :
                prediction.subwin? ? 1 : 0
     end

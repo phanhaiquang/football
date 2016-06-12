@@ -2,32 +2,41 @@
 
 <h1>Listing Predictions</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Match</th>
+      <th>Result</th>
       <th>User</th>
-      <th>Mainscore1</th>
-      <th>Mainscore2</th>
+      <th>Prediction</th>
+      <th>Score</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @predictions.each do |prediction| %>
-      <tr>
-        <td><%= prediction.match %></td>
-        <td><%= prediction.user %></td>
-        <td><%= prediction.mainscore1 %></td>
-        <td><%= prediction.mainscore2 %></td>
-        <td><%= link_to 'Show', prediction %></td>
-        <td><%= link_to 'Edit', edit_prediction_path(prediction) %></td>
-        <td><%= link_to 'Destroy', prediction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr class="prediction <%= prediction.match.started? ? 'btn-disabled' : 'btn-enabled'%>" href="<%= edit_prediction_path(prediction)%>">
+        <td><%= prediction.match.name %></td>
+        <td><%= prediction.closed? ? "#{prediction.match.mainscore1} - #{prediction.match.mainscore2}" : "Not available" %></td>
+        <td><%= prediction.user.name %></td>
+        <td><%= prediction.mainscores %></td>
+        <td><%= prediction.score %></td>
+        <td class="text-right">
+          <%= link_to 'Destroy', prediction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col' %>
+          <%= link_to 'Edit', edit_prediction_path(prediction), class: 'btn btn-warning btn-xs btn-one-col' %>
+        </td>
       </tr>
     <% end %>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="btn-danger"><%= current_user.score %></td>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Prediction', new_prediction_path %>
+<div class="col-xs-12">
+  <hr></hr>
+  <%= link_to 'New Prediction', new_prediction_path, class: 'btn btn-primary' %>
+</div>

@@ -2,12 +2,12 @@
 
 <p>
   <strong>Match:</strong>
-  <%= @prediction.match %>
+  <%= @prediction.match.name %>
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @prediction.user %>
+  <%= @prediction.user.name %>
 </p>
 
 <p>
@@ -20,5 +20,8 @@
   <%= @prediction.mainscore2 %>
 </p>
 
-<%= link_to 'Edit', edit_prediction_path(@prediction) %> |
-<%= link_to 'Back', predictions_path %>
+<div class="col-xs-12">
+  <hr></hr>
+  <%= link_to 'Edit', edit_prediction_path(@prediction), class: "btn btn-primary" %> |
+  <%= link_to 'Back', predictions_path, class: "btn btn-primary btn-warning" %>
+</div>

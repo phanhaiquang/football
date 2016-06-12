@@ -2,5 +2,8 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @match %> |
-<%= link_to 'Back', matches_path %>
+<div class="col-xs-12">
+  <hr></hr>
+  <%= link_to 'Show', @match, class: "btn btn-primary" %> |
+  <%= link_to 'Back', matches_path, class: "btn btn-primary" %>
+</div>

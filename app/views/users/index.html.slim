@@ -1,0 +1,9 @@
+table.table
+  tr
+    td #
+    td Player
+    td Scores
+  - @users.each_with_index do |user, index|
+    td =index+1
+    td =user.name
+    td =user.score

@@ -11,23 +11,22 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :match_id %><br>
-    <%= f.text_field :match_id %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :mainscore1 %><br>
-    <%= f.number_field :mainscore1 %>
-  </div>
-  <div class="field">
-    <%= f.label :mainscore2 %><br>
-    <%= f.number_field :mainscore2 %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <fieldset class="col-xs-6">
+    <div class="field form-group">
+      <%= f.label :match_id, class: "form-left" %>
+      <%= f.collection_select :match_id, predicable_matches(current_user), :id, :name, class: "form-right" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :mainscore1, class: "form-left" %>
+      <%= f.number_field :mainscore1, class: "form-right" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :mainscore2, class: "form-left" %>
+      <%= f.number_field :mainscore2, class: "form-right" %>
+    </div>
+    <br></br>
+    <div class="actions">
+      <%= f.submit 'Submit', class: 'btn btn-primary' %>
+    </div>
+  </fieldset>
 <% end %>

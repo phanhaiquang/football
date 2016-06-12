@@ -14,3 +14,19 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+;(function(window, $) {
+    $(document)
+    .on('ready page:load', function(){
+        $('.btn-disabled .btn').attr("disabled",true);
+        $('.btn-disabled .btn-enabled').attr("disabled",false);
+    })
+    .on('click', '.match', function(){
+        window.location.href=$(this).attr('href');
+    })
+    .on('click', '.prediction.btn-enabled', function(){
+        window.location.href=$(this).attr('href');
+    })
+
+})(this, $);
+

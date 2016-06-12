@@ -1,0 +1,21 @@
+@import "bootstrap";
+
+@import 'shared/base';
+@import 'shared/modalsearch';
+
+.match:hover {
+  background-color: lightblue;
+}
+
+.prediction.btn-enabled:hover {
+  background-color: lightblue;
+}
+
+#notice {
+  color: lightblue;
+}
+
+#error_explanation {
+  color: red;
+}
+
