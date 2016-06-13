@@ -1,0 +1,30 @@
+h1 Listing Teams
+
+table.table
+  thead
+    tr
+      th Name
+      th Score
+      th Status
+      th Coach
+      th colspan="3"
+
+  tbody
+    - @teams.each do |team|
+      tr
+        td= render("shared/team_name", team: team)
+        td= team.score
+        td= team.status
+        td= team.coach
+        td.text-right
+          - if can?(:destroy, team)
+            = link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
+          - if can?(:edit, team)
+            = link_to 'Edit', edit_team_path(team), class: 'btn btn-warning btn-xs btn-one-col'
+          - if can?(:read, team)
+            = link_to 'Show', team, class: 'btn btn-success btn-xs btn-one-col'
+
+hr
+
+- if can?(:create, Team)
+  = link_to 'New Team', new_team_path, class: 'btn btn-primary'

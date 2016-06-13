@@ -1,0 +1,23 @@
+= form_for(@prediction) do |f|
+  - if @prediction.errors.any?
+    div#error_explanation
+      h2 = pluralize(@prediction.errors.count, "error") 
+      | prohibited this prediction from being saved:
+      ul
+      - @prediction.errors.full_messages.each do |message|
+        li = message
+
+  fieldset.col-xs-6
+    div.field.form-group
+      = f.label :match_id, class: "form-left"
+      = f.collection_select :match_id, predicable_matches(current_user), :id, :name, class: "form-right"
+    div.field.form-group
+      = f.label :mainscore1, class: "form-left"
+      = f.number_field :mainscore1, class: "form-right"
+    div.field.form-group
+      = f.label :mainscore2, class: "form-left"
+      = f.number_field :mainscore2, class: "form-right"
+    br
+    div.field.form-group
+      div.actions
+        = f.submit 'Submit', class: 'btn btn-primary form-left'

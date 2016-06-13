@@ -1,0 +1,22 @@
+table.table
+  tr
+    td  Match
+    td= render "shared/match_name", match: @prediction.match
+
+  tr
+    td User
+    td= @prediction.user.name
+
+  tr
+    td Main score
+    td= @prediction.mainscores
+
+div.col-xs-12
+  hr
+  - if can?(:create, Prediction)
+    = link_to 'New prediction', new_prediction_path, class: "btn btn-primary"
+    | |
+  - if can?(:edit, @prediction)
+    = link_to 'Edit', edit_prediction_path(@prediction), class: "btn btn-primary"
+    | |
+  = link_to 'Back', predictions_path, class: "btn btn-primary btn-warning"

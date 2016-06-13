@@ -1,0 +1,34 @@
+h1 Listing Matches
+
+table.table
+  thead
+    tr
+      th #
+      th Match
+      th Time
+      th Status
+      th Score
+      th Winner(s)
+      th colspan="3"
+
+  tbody
+    - @matches.each_with_index do |match, index|
+      tr class="hoverable <%= can?(:edit, match)? 'clickable' : ''%>" href="<%= edit_match_path(match) %>"
+        td= index+1
+        td= render "shared/match_name", match: match
+        td= match.time.to_s(:match)
+        td= match.closed? ? 'Finished' : ''
+        td= match.mainscores
+        td= match.prediction_winners.map(&:name).join(", ")
+        td.text-right
+          - if can?(:destroy, match)
+            = link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger btn-one-col'
+          - if can?(:edit, match)
+            = link_to 'Edit', edit_match_path(match), class: 'btn btn-xs btn-warning btn-one-col btn-enabled'
+          - if can?(:read, match)
+            = link_to 'Show', match, class: 'btn btn-xs btn-success btn-one-col'
+
+hr
+
+- if can?(:create, Match)
+  = link_to 'New Match', new_match_path, class: "btn btn-primary"

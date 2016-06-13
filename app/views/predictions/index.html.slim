@@ -1,0 +1,37 @@
+h1 Listing Predictions
+
+table.table
+  thead
+    tr
+      th Match
+      th Result
+      th User
+      th Prediction
+      th Score
+      th Updated at
+      th colspan="3" 
+
+  tbody
+    - @predictions.each do |prediction|
+      tr class=("hoverable" + (can?(:edit, prediction) ? "clickable" : "")) href=(edit_prediction_path(prediction))
+        td = render "shared/match_name", match: prediction.match
+        td = prediction.closed? ? "#{prediction.match.mainscore1} - #{prediction.match.mainscore2}" : "Not available"
+        td = prediction.user.name
+        td = prediction.mainscores
+        td = prediction.score
+        td = prediction.updated_at.to_s(:match)
+        td.text-right
+          - if can?(:destroy, prediction)
+            = link_to 'Destroy', prediction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
+          - if can?(:edit, prediction)
+            = link_to 'Edit', edit_prediction_path(prediction), class: 'btn btn-warning btn-xs btn-one-col'
+    td
+    td
+    td
+    td
+    td.btn-danger = current_user.score
+
+div.col-xs-12
+  hr
+  - if can?(:create, Prediction)
+    = link_to 'New Prediction', new_prediction_path, class: 'btn btn-primary'

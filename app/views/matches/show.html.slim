@@ -1,0 +1,31 @@
+table.table
+  tr
+    td Team1
+    td= render "shared/match_name", match: @match
+
+  tr
+    td Time: 
+    td= @match.time
+
+  tr
+    td Status
+    td= @match.status
+
+  tr
+    td Main score
+    td= @match.mainscores
+
+  - if @match.subscore1.present? && @match.subscore2.present?
+    tr
+      td Sub score
+      td= @match.subscores
+
+hr
+
+- if can?(:create, Match)
+  = link_to 'New Match', new_match_path, class: "btn btn-primary"
+  | |
+- if can?(:edit, @match)
+  = link_to 'Edit', edit_match_path(@match), class: "btn btn-primary"
+  | |
+= link_to 'Back', matches_path, class: "btn btn-primary"
