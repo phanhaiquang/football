@@ -4,6 +4,12 @@ class Prediction < ActiveRecord::Base
 
   validate :validate_match
 
+  #FIXME
+  after_save :update_score
+  def update_score
+    match.update_score
+  end
+
   def validate_match
     errors.add(:match, ' started !!!') if match.started? && !ENV["SKIP_VALIDATION"]
   end
