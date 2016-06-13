@@ -1,0 +1,1 @@
+skip_validation  : <%= (ENV['SKIP_VALIDATION'] && ENV['SKIP_VALIDATION'] == "true") || false %> 
