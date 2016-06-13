@@ -9,7 +9,7 @@ class Prediction < ActiveRecord::Base
   end
 
   def locked?
-    match.started? || ENV["SKIP_VALIDATION"]
+    match.started? && ENV["SKIP_VALIDATION"]
   end
 
   def open?
