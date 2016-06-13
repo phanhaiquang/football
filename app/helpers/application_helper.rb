@@ -1,6 +1,6 @@
 module ApplicationHelper
   def matches_started
-    ENV["SKIP_VALIDATION"] ? [] : Match.all.select(&:started?).map(&:id)
+    APP_CONFIG["skip_validation"] ? [] : Match.all.select(&:started?).map(&:id)
   end
 
   def predicable_matches(user)
