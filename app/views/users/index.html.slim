@@ -17,20 +17,20 @@ table.table
   tr
     td.col-xs-2 Match
     td.col-xs-1 Result
-    - User.all.order(:id).each do |user|
+    - @users.each do |user|
       td.col-xs-1 =user.name
     - Match.all.each do |match|
       - if match.closed?
         tr
           td =render "shared/match_name", match: match
           td =match.mainscores
-          - User.all.order(:id).each do |user|
+          - @users.each do |user|
             - p = Prediction.find_by(match: match, user: user)
             - if p.present?
               td ="#{p.mainscores} (#{p.score} point)"
   tr
     td
     td
-    - User.all.order(:id).each do |user|
+    - @users.each do |user|
       td.user-score =user.score
 
