@@ -11,19 +11,21 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="field form-group">
+    <%= f.label :name, class: "form-left" %>
+    <%= f.text_field :name, class: "form-right" %>
   </div>
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.select :status, [['Playing', true], ['Stopped': false]] %>
+  <div class="field form-group">
+    <%= f.label :status, class: "form-left" %>
+    <%= f.select :status, [['Playing', true], ['Stopped': false]], class: "form-right" %>
   </div>
-  <div class="field">
-    <%= f.label :coach %><br>
-    <%= f.text_field :coach %>
+  <div class="field form-group">
+    <%= f.label :coach, class: "form-left" %>
+    <%= f.text_field :coach, class: "form-right" %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="field form-group">
+    <div class="actions">
+      <%= f.submit "Submit", class: "form-left" %>
+    </div>
   </div>
 <% end %>

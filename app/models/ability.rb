@@ -7,7 +7,10 @@ class Ability
     if user.admin?
       can :manage, :all
     else
-      can :crud, Prediction
+      can [:create, :read], Prediction
+      can [:update, :destroy], Prediction, Prediction.all do |prediction|
+        (prediction.user_id == user.id) && prediction.open?
+      end
       can :read, :all
     end
   end
