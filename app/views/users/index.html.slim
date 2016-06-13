@@ -14,9 +14,9 @@ table.table
           - @users.each do |user|
             - p = Prediction.find_by(match: match, user: user)
             - if p.present?
-              td ="#{p.mainscores} (#{p.score} point)"
+              td ="#{p.mainscores} #{p.score>0 ? "(+#{p.score})" : ""}"
             - else
-              td NA
+              td -
   tr
     td
     td
