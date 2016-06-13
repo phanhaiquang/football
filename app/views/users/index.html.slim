@@ -28,6 +28,8 @@ table.table
             - p = Prediction.find_by(match: match, user: user)
             - if p.present?
               td ="#{p.mainscores} (#{p.score} point)"
+            - else
+              td NA
   tr
     td
     td
