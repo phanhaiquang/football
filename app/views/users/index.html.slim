@@ -2,7 +2,7 @@ h1 Detail result for each match
 
 table.table
   tr
-    td.col-xs-2 Match
+    td.col-xs-2.match-name Match
     td.col-xs-1 Result
     - @users.each do |user|
       td.col-xs-1 =user.name
@@ -14,7 +14,7 @@ table.table
           - @users.each do |user|
             - p = Prediction.find_by(match: match, user: user)
             - if p.present?
-              td ="#{p.mainscores} #{p.score>0 ? "(+#{p.score})" : ""}"
+              td ="#{p.mainscores} #{p.score>0 ? "(#{p.score}p)" : ""}"
             - else
               td -
   tr
