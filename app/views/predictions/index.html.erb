@@ -8,6 +8,7 @@
       <th>User</th>
       <th>Prediction</th>
       <th>Score</th>
+      <th>Updated at</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,6 +21,7 @@
         <td><%= prediction.user.name %></td>
         <td><%= prediction.mainscores %></td>
         <td><%= prediction.score %></td>
+        <td><%= prediction.updated_at.to_s(:match) %></td>
         <td class="text-right">
           <% if can?(:destroy, prediction) && prediction.open? %>
             <%= link_to 'Destroy', prediction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col' %>
