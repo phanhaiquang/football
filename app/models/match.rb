@@ -7,6 +7,10 @@ class Match < ActiveRecord::Base
 
   after_save :update_score, if: -> { closed? }
 
+  def prediction_of(user)
+    predictions.find_by(user: user)
+  end
+
   def name
     team1.name + ' vs ' + team2.name + " (#{time.to_s(:match)})"
   end

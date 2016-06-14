@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :predictions
+  has_many :matches, through: :predictions
 
   def name
     email.gsub(/@.*/, '')

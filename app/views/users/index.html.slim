@@ -1,4 +1,19 @@
-h1 Detail result for each match
+h2 Your prediction
+
+table.table
+  tr
+    td Match
+    td Your prediction
+    td Result
+    td Score
+  - current_user.predictions.each do |prediction|
+    tr
+      td = render "shared/match_name", match: prediction.match
+      td = prediction.mainscores
+      td = prediction.match.mainscores
+      td = prediction.score
+
+h2 Detail result for each match
 
 table.table
   tr
@@ -14,9 +29,9 @@ table.table
           - @users.each do |user|
             - p = Prediction.find_by(match: match, user: user)
             - if p.present?
-              td ="#{p.mainscores} #{p.score>0 ? "(#{p.score}p)" : ""}"
+              td class=(p.score==1? "good-point" : (p.score==2? "excellent-point" : "zero-point") ) =p.mainscores
             - else
-              td -
+              td.not-available -
   tr
     td
     td

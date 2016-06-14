@@ -1,3 +1,5 @@
+h2 Match information
+
 table.table
   tr
     td Team1
@@ -19,6 +21,19 @@ table.table
     tr
       td Sub score
       td= @match.subscores
+
+h2 Prediction related to the match
+
+table.table
+  tr
+    td User
+    td Prediction
+    td Score
+  - @match.predictions.each do |prediction|
+    tr
+      td = prediction.user.name
+      td = prediction.mainscores
+      td = prediction.score
 
 hr
 

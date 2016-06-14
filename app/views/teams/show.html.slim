@@ -1,3 +1,5 @@
+h2 Team information
+
 p
   strong Name: 
   = @team.name
@@ -13,6 +15,21 @@ p
 p
   strong Coach: 
   = @team.coach
+
+hr
+
+h2 Your prediction
+
+table.table
+  tr
+    td.col-xs-6 Match
+    td.col-xs-6 Result
+    td.col-xs-6 Your prediction
+  - @team.matches.each do |match|
+    tr
+      td = render "shared/match_name", match: match
+      td = match.mainscores
+      td = p = match.prediction_of(current_user); p.mainscores if p.present?
 
 hr
 
