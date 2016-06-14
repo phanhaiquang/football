@@ -29,7 +29,7 @@ table.table
           - @users.each do |user|
             - p = Prediction.find_by(match: match, user: user)
             - if p.present?
-              td class=(p.score==1? "good-point" : (p.score==2? "excellent-point" : "zero-point") ) =p.mainscores
+              td class=(p.score==1? "good-point" : (p.score==2? "excellent-point" + (p.prediction_winners==1? " best-point" : "") : "zero-point") ) =p.mainscores
             - else
               td.not-available -
   tr
