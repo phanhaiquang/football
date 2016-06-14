@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all.order(score: :desc)
+    @users = User.where(admin: false).order(score: :desc)
   end
 end
