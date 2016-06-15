@@ -1,28 +1,20 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The system to predict a football match with your friends
 
-Things you may want to cover:
+* Score system
+  +2  : prediction is exactly same as final result of the match 
+        (ex: the match result is 2-1, and you predicted 2-1)
+  +1  : same winner team 
+        (ex: the match result is 2-1, and you predicted 3-1 -> the team won, but with different result)
 
-* Ruby version
+* Only admin could add Team/Match & update their information.
+  Users could add/delete Prediction only.
 
-* System dependencies
+Prediction will be closed by 15 minutes before the match !
+However, you can set environment variable "SKIP_VALIDATION" to "true" for allowing updating prediction at any time !
 
-* Configuration
+* Demo
+  https://euro2016prediction.herokuapp.com
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Have fun !
