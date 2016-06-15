@@ -1,20 +1,31 @@
 h2 Team information
 
-p
-  strong Name: 
-  = @team.name
-
-p
-  strong Score: 
-  = @team.score
-
-p
-  strong Status: 
-  = @team.status
-
-p
-  strong Coach: 
-  = @team.coach
+table.table
+  tr
+    td.col-xs-4 Name 
+    td.col-xs-1 =render "shared/team_name", team: @team
+    td.col-xs-7 
+  tr
+    td Number of played match(es) 
+    td= @team.played_matches_count
+  tr
+    td Number of remain match(es) 
+    td= @team.remain_matches_count
+  tr
+    td Number of goal(s) 
+    td= @team.goals
+  tr
+    td Goal difference
+    td= @team.goal_difference
+  tr
+    td Score 
+    td= @team.score
+  tr
+    td Status 
+    td class="#{@team.status ? "team-playing" : "team-stopped"}" = @team.status ? "Playing" : "Stopped"
+  tr
+    td Coach 
+    td= @team.coach
 
 hr
 
@@ -22,9 +33,9 @@ h2 Your prediction
 
 table.table
   tr
-    td.col-xs-6 Match
-    td.col-xs-6 Result
-    td.col-xs-6 Your prediction
+    td.col-xs-2 Match
+    td.col-xs-2 Result
+    td.col-xs-2 Your prediction
   - @team.matches.each do |match|
     tr
       td = render "shared/match_name", match: match

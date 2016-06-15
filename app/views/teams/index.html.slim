@@ -5,8 +5,11 @@ table.table
     tr
       th Name
       th Score
+      th Played matches
+      th Remain matches
+      th Goals
+      th Goal difference
       th Status
-      th Coach
       th colspan="3"
 
   tbody
@@ -14,8 +17,11 @@ table.table
       tr class="hoverable clickable" href="#{team_path(team)}"
         td= render("shared/team_name", team: team)
         td= team.score
-        td= team.status
-        td= team.coach
+        td= team.played_matches_count
+        td= team.remain_matches_count
+        td= team.goals
+        td= team.goal_difference
+        td class="#{team.status ? "team-playing" : "team-stopped"}" = team.status ? "Playing" : "Stopped"
         td.text-right
           - if can?(:destroy, team)
             = link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
