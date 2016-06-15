@@ -13,7 +13,7 @@ table.table
 
   tbody
     - @predictions.each do |prediction|
-      tr class=("hoverable " + (can?(:edit, prediction) ? "clickable" : "")) href=(edit_prediction_path(prediction))
+      tr class="hoverable clickable" href="#{can?(:edit, prediction) ? edit_prediction_path(prediction) : prediction_path(prediction)}"
         td = render "shared/match_name", match: prediction.match
         td = prediction.closed? ? "#{prediction.match.mainscore1} - #{prediction.match.mainscore2}" : "Not available"
         td = prediction.user.name
@@ -23,8 +23,6 @@ table.table
         td.text-right
           - if can?(:destroy, prediction)
             = link_to 'Destroy', prediction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
-          - if can?(:edit, prediction)
-            = link_to 'Edit', edit_prediction_path(prediction), class: 'btn btn-warning btn-xs btn-one-col'
     td
     td
     td

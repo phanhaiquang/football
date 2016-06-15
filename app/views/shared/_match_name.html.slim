@@ -1,3 +1,4 @@
-= render "shared/team_name", team: match.team1
-span.vs-width vs.
-= render "shared/team_name", team: match.team2
+div.clickable href="#{match_path(match)}"
+  = render "shared/team_name", team: match.team1
+  span.vs-width vs.
+  = render "shared/team_name", team: match.team2

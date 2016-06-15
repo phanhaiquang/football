@@ -11,7 +11,7 @@ table.table
 
   tbody
     - @teams.each do |team|
-      tr
+      tr class="hoverable clickable" href="#{can?(:edit, team) ? edit_team_path(team) : team_path(team)}"
         td= render("shared/team_name", team: team)
         td= team.score
         td= team.status
@@ -19,10 +19,6 @@ table.table
         td.text-right
           - if can?(:destroy, team)
             = link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
-          - if can?(:edit, team)
-            = link_to 'Edit', edit_team_path(team), class: 'btn btn-warning btn-xs btn-one-col'
-          - if can?(:read, team)
-            = link_to 'Show', team, class: 'btn btn-success btn-xs btn-one-col'
 
 hr
 
