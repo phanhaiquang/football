@@ -1,1 +1,3 @@
 skip_validation  : <%= (ENV['SKIP_VALIDATION'] && ENV['SKIP_VALIDATION'] == "true") || false %> 
+repo_url         : <%= (ENV['REPO_URL']  || "https://github.com/phanhaiquang/football") %> 
+repo_logo        : <%= (ENV['REPO_LOGO'] || "http://sciactive.com/pnotify/includes/github-icon.png") %> 
