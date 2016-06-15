@@ -2,8 +2,8 @@ h1 Editing Team
 
 = render 'form'
 
-hr
-
-= link_to 'Show', @team
-| |
-= link_to 'Back', teams_path
+div.col-xs-12
+  hr
+  = link_to 'Show', @team, class: "btn btn-primary"
+  | |
+  = link_to 'Back', teams_path, class: "btn btn-primary"

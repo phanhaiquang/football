@@ -1,20 +1,22 @@
 h2 Your prediction
-
-table.table
-  tr
-    td Match
-    td Your prediction
-    td Result
-    td Score
-  - current_user.predictions.each do |prediction|
+- if current_user.predictions.count > 0
+  table.table
     tr
-      td = render "shared/match_name", match: prediction.match
-      td = prediction.mainscores
-      td = prediction.match.mainscores
-      td = prediction.score
+      td Match
+      td Your prediction
+      td Result
+      td Score
+    - current_user.predictions.each do |prediction|
+      tr
+        td = render "shared/match_name", match: prediction.match
+        td = prediction.mainscores
+        td = prediction.match.mainscores
+        td = prediction.score
+- else
+  p You don't have any prediction !
+  = link_to "Create one!", new_prediction_path, class: "btn btn-primary"
 
 h2 Detail result for each match
-
 table.table
   tr
     td.col-xs-2.match-name Match

@@ -1,22 +1,23 @@
-= form_for(@team) do |f|
-  - if @team.errors.any?
-    div#error_explanation
-      h2= pluralize(@team.errors.count, "error")
-      | prohibited this team from being saved:
+div.col-xs-6
+  = form_for(@team) do |f|
+    - if @team.errors.any?
+      div#error_explanation
+        h2= pluralize(@team.errors.count, "error")
+        | prohibited this team from being saved:
 
-      ul
-      - @team.errors.full_messages.each do |message|
-        li= message</li>
+        ul
+        - @team.errors.full_messages.each do |message|
+          li= message
 
-  div.field.form-group
-    = f.label :name, class: "form-left"
-    = f.text_field :name, class: "form-right"
-  div.field.form-group
-    = f.label :status, class: "form-left"
-    = f.select :status, [['Playing', true], ['Stopped': false]], class: "form-right"
-  div.field.form-group
-    = f.label :coach, class: "form-left"
-    = f.text_field :coach, class: "form-right"
-  div.field.form-group
-    div.actions
-      = f.submit "Submit", class: "form-left"
+    div.field.form-group
+      = f.label :name, class: "form-left"
+      = f.text_field :name, class: "form-right"
+    div.field.form-group
+      = f.label :status, class: "form-left"
+      = f.select :status, [['Playing', true], ['Stopped': false]], class: "form-right"
+    div.field.form-group
+      = f.label :coach, class: "form-left"
+      = f.text_field :coach, class: "form-right"
+    div.field.form-group
+      div.actions
+        = f.submit "Submit", class: "form-left btn btn-primary"
