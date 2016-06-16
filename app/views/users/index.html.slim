@@ -13,7 +13,7 @@ table.table
           - @users.each do |user|
             - p = Prediction.find_by(match: match, user: user)
             - if p.present?
-              td class=(p.score==1? "good-point" : (p.score==2? "excellent-point" + (match.prediction_winners.count==1? " best-point" : "") : "zero-point") ) =p.mainscores
+              = render "shared/prediction_score", prediction: p
             - else
               td.not-available -
   tr

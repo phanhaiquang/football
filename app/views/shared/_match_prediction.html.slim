@@ -7,5 +7,5 @@ table.table
     tr
       td = prediction.user.name
       td = prediction.mainscores
-      td = prediction.score
+      = render "shared/prediction_score", prediction: prediction
 
