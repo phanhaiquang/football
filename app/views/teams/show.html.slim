@@ -6,19 +6,25 @@ table.table
     td.col-xs-1 =render "shared/team_name", team: @team
     td.col-xs-7 
   tr
-    td Number of played match(es) 
-    td= @team.played_matches_count
+    td Played match (P)
+    td= @team.played_matches.count
   tr
-    td Number of remain match(es) 
-    td= @team.remain_matches_count
+    td Won match (W)
+    td= @team.won_matches.count
   tr
-    td Number of goal(s) 
-    td= @team.goals
+    td Drew match (D)
+    td= @team.drew_matches.count
   tr
-    td Goal difference
-    td= @team.goal_difference
+    td Loss match (L)
+    td= @team.loss_matches.count
   tr
-    td Score 
+    td Goal for (F)
+    td= @team.goal_for
+  tr
+    td Goal against (A)
+    td= @team.goal_against
+  tr
+    td Point 
     td= @team.score
   tr
     td Status 

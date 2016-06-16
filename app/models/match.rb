@@ -34,6 +34,13 @@ class Match < ActiveRecord::Base
     end
   end
 
+  def looser
+    if closed?
+      mainscore1 > mainscore2 ? team2 :
+      mainscore1 < mainscore2 ? team1 : nil
+    end
+  end
+
   def prediction_winners
     User.where(id: Prediction.where(match: self, mainscore1: mainscore1, mainscore2: mainscore2).map(&:user_id))
   end

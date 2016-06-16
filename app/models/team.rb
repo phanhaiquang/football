@@ -3,20 +3,32 @@ class Team < ActiveRecord::Base
     Match.where("team1_id = ? OR team2_id = ?", self, self)
   end
 
-  def goals
-    matches.inject(0) {|sum, match| sum + (match.closed? ? (match.team1 == self ? match.mainscore1 : match.mainscore2) : 0)}
-  end
-
-  def goal_difference
-    goals*2 - matches.inject(0) {|sum, match| sum + (match.closed? ? match.mainscore1 + match.mainscore2 : 0)}
-  end
-
   def total_matches_count
     matches.count
   end
 
-  def played_matches_count
-    matches.where(status: true).count
+  def played_matches
+    matches.where(status: true)
+  end
+
+  def won_matches
+    played_matches.select{|match| match.winner == self}
+  end
+
+  def drew_matches
+    played_matches.select{|match| match.mainscore1 == match.mainscore2}
+  end
+
+  def loss_matches
+    played_matches.select{|match| match.looser == self}
+  end
+
+  def goal_for
+    played_matches.inject(0) {|sum, match| sum + (match.team1 == self ? match.mainscore1 : match.mainscore2)}
+  end
+
+  def goal_against
+    played_matches.inject(0) {|sum, match| sum + (match.team1 == self ? match.mainscore2 : match.mainscore1)}
   end
 
   def remain_matches_count
