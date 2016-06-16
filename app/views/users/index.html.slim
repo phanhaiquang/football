@@ -7,7 +7,7 @@ table.table
       td.col-xs-1 =user.name
     - Match.all.each do |match|
       - if match.closed?
-        tr
+        tr.hoverable
           td =render "shared/match_name", match: match
           td =match.mainscores
           - @users.each do |user|

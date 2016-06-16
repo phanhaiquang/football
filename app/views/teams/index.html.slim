@@ -3,6 +3,7 @@ h1 Listing Teams
 table.table
   thead
     tr
+      th #
       th Name
       th Score
       th Played
@@ -15,8 +16,9 @@ table.table
       th colspan="3"
 
   tbody
-    - @teams.each do |team|
+    - @teams.each_with_index do |team, index|
       tr class="hoverable clickable" href="#{team_path(team)}"
+        td= index + 1
         td= render("shared/team_name", team: team)
         td= team.score
         td= team.played_matches.count
