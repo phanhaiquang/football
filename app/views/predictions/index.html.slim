@@ -1,33 +1,36 @@
 h1 Listing Predictions
 
-table.table
-  thead
-    tr
-      th Match
-      th Result
-      th User
-      th Prediction
-      th Score
-      th Updated at
-      th colspan="3" 
+- if @predictions.count == 0
+  p You don't have any prediction yet !!!
+-else
+  table.table
+    thead
+      tr
+        th Match
+        th Result
+        th User
+        th Prediction
+        th Score
+        th Updated at
+        th colspan="3" 
 
-  tbody
-    - @predictions.each do |prediction|
-      tr class="hoverable clickable" href="#{can?(:edit, prediction) ? edit_prediction_path(prediction) : prediction_path(prediction)}"
-        td = render "shared/match_name", match: prediction.match
-        td = prediction.closed? ? "#{prediction.match.mainscore1} - #{prediction.match.mainscore2}" : "Not available"
-        td = prediction.user.name
-        td = prediction.mainscores
-        td = prediction.score
-        td = prediction.updated_at.to_s(:match)
-        td.text-right
-          - if can?(:destroy, prediction)
-            = link_to 'Destroy', prediction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
-    td
-    td
-    td
-    td
-    td.btn-danger = current_user.score
+    tbody
+      - @predictions.each do |prediction|
+        tr class="hoverable clickable" href="#{can?(:edit, prediction) ? edit_prediction_path(prediction) : prediction_path(prediction)}"
+          td = render "shared/match_name", match: prediction.match
+          td = prediction.closed? ? "#{prediction.match.mainscore1} - #{prediction.match.mainscore2}" : "Not available"
+          td = prediction.user.name
+          td = prediction.mainscores
+          td = prediction.score
+          td = prediction.updated_at.to_s(:match)
+          td.text-right
+            - if can?(:destroy, prediction)
+              = link_to 'Destroy', prediction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
+      td
+      td
+      td
+      td
+      td.btn-danger = current_user.score
 
 div.col-xs-12
   hr

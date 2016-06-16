@@ -5,11 +5,7 @@ class PredictionsController < ApplicationController
   # GET /predictions
   # GET /predictions.json
   def index
-    if current_user.admin?
-      @predictions = Prediction.all
-    else
-      @predictions = current_user.predictions
-    end
+    @predictions = current_user.predictions
   end
 
   # GET /predictions/1
