@@ -19,7 +19,7 @@ table.table
       td Sub score
       td= @match.subscores
 
-- @predictions = @match.closed? ? @match.predictions : @match.predictions.where(user: current_user)
+- @predictions = @match.started? ? @match.predictions : @match.predictions.where(user: current_user)
 - if @predictions.count > 0
   h2 Predictions
   = render "shared/match_prediction", predictions: @predictions

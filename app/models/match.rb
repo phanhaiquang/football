@@ -50,7 +50,7 @@ class Match < ActiveRecord::Base
   end
 
   def started?
-    Time.now >= time - 15.minutes
+    Time.now >= time
   end
 
   def closed?
