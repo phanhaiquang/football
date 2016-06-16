@@ -19,19 +19,10 @@ table.table
       td Sub score
       td= @match.subscores
 
-- if @match.closed?
-  h2 Prediction related to the match
-
-  table.table
-    tr
-      td.col-xs-4 User
-      td.col-xs-4 Prediction
-      td.col-xs-4 Score
-    - @match.predictions.each do |prediction|
-      tr
-        td = prediction.user.name
-        td = prediction.mainscores
-        td = prediction.score
+- @predictions = @match.closed? ? @match.predictions : @match.predictions.where(user: current_user)
+- if @predictions.count > 0
+  h2 Predictions
+  = render "shared/match_prediction", predictions: @predictions
 
 hr
 
