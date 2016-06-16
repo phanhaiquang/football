@@ -18,6 +18,9 @@ table.table
     tr
       td Sub score
       td= @match.subscores
+  tr
+    td Predictions winner(s)
+    td= @match.prediction_winners.map(&:name).join(", ")
 
 - @predictions = @match.started? ? @match.predictions : @match.predictions.where(user: current_user)
 - if @predictions.count > 0
