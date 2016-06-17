@@ -21,7 +21,7 @@ h1 Listing Predictions
           td = render "shared/match_name", match: prediction.match
           td = prediction.closed? ? "#{prediction.match.mainscore1} - #{prediction.match.mainscore2}" : "Not available"
           td = prediction.mainscores
-          = render "shared/prediction_score", prediction: prediction
+          = render "shared/prediction_score", prediction: prediction, score: prediction.score
           td = prediction.updated_at.to_s(:match)
           td.text-right
             - if can?(:destroy, prediction)
