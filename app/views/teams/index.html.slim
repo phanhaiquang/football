@@ -27,7 +27,7 @@ table.table.table-hover
         td= team.loss_matches.count
         td= team.goal_for
         td= team.goal_against
-        td class="#{team.status ? "team-playing" : "team-stopped"}" = team.status ? "Playing" : "Stopped"
+        td class="#{team.status ? "success" : "danger"}" = team.status ? "Playing" : "Stopped"
         td.text-right
           - if can?(:destroy, team)
             = link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
