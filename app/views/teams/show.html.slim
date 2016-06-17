@@ -2,9 +2,9 @@ h2 Team information
 
 table.table
   tr
-    td.col-xs-4 Name 
-    td.col-xs-1 =render "shared/team_name", team: @team
-    td.col-xs-7 
+    th.col-xs-4 Name 
+    th.col-xs-1 =render "shared/team_name", team: @team
+    th.col-xs-7 
   tr
     td Played match (P)
     td= @team.played_matches.count
@@ -39,9 +39,9 @@ h2 Your prediction
 
 table.table
   tr
-    td.col-xs-2 Match
-    td.col-xs-2 Result
-    td.col-xs-2 Your prediction
+    th.col-xs-2 Match
+    th.col-xs-2 Result
+    th.col-xs-2 Your prediction
   - @team.matches.each do |match|
     tr
       td = render "shared/match_name", match: match

@@ -2,8 +2,8 @@ h2 Match information
 
 table.table
   tr
-    td.col-xs-4 Match
-    td.col-xs-8 =render "shared/match_name", match: @match
+    th.col-xs-4 Match
+    th.col-xs-8 =render "shared/match_name", match: @match
   tr
     td Time
     td= @match.time.to_s(:match)

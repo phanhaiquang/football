@@ -1,10 +1,10 @@
 h2 Detail result for each match
 table.table
   tr
-    td.col-xs-2.match-name Match
-    td.col-xs-1 Result
+    th.col-xs-2.match-name Match
+    th.col-xs-1 Result
     - @users.each do |user|
-      td.col-xs-1 =user.name
+      th.col-xs-1 =user.name
     - Match.all.each do |match|
       - if match.closed?
         tr.hoverable
