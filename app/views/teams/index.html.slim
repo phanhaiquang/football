@@ -1,6 +1,6 @@
 h1 Listing Teams
 
-table.table
+table.table.table-hover
   thead
     tr
       th #
@@ -17,7 +17,7 @@ table.table
 
   tbody
     - @teams.each_with_index do |team, index|
-      tr class="hoverable clickable" href="#{team_path(team)}"
+      tr.clickable href="#{team_path(team)}"
         td= index + 1
         td= render("shared/team_name", team: team)
         td= team.score

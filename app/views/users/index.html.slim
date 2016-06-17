@@ -1,5 +1,5 @@
 h2 Detail result for each match
-table.table
+table.table.table-hover
   tr
     th.col-xs-2.match-name Match
     th.col-xs-1 Result
@@ -7,7 +7,7 @@ table.table
       th.col-xs-1 =user.name
     - Match.all.each do |match|
       - if match.closed?
-        tr.hoverable
+        tr
           td =render "shared/match_name", match: match
           td =match.mainscores
           - @users.each do |user|

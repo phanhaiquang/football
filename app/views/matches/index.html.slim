@@ -1,6 +1,6 @@
 h1 Listing Matches
 
-table.table
+table.table.table-hover
   thead
     tr
       th #
@@ -13,7 +13,7 @@ table.table
 
   tbody
     - @matches.each_with_index do |match, index|
-      tr class="hoverable clickable" href="#{match_path(match)}"
+      tr.clickable href="#{match_path(match)}"
         td= index+1
         td= render "shared/match_name", match: match
         td= match.time.to_s(:match)

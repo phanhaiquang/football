@@ -3,7 +3,7 @@ h1 Listing Predictions
 - if @predictions.count == 0
   p You don't have any prediction yet !!!
 -else
-  table.table
+  table.table.table-hover
     thead
       tr
         th #
@@ -16,7 +16,7 @@ h1 Listing Predictions
 
     tbody
       - @predictions.each_with_index do |prediction, index|
-        tr class="hoverable clickable" href="#{can?(:edit, prediction) ? edit_prediction_path(prediction) : prediction_path(prediction)}"
+        tr.clickable href="#{can?(:edit, prediction) ? edit_prediction_path(prediction) : prediction_path(prediction)}"
           td = index + 1
           td = render "shared/match_name", match: prediction.match
           td = prediction.closed? ? "#{prediction.match.mainscore1} - #{prediction.match.mainscore2}" : "Not available"
