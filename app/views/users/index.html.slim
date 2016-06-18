@@ -1,30 +1,26 @@
 h2 Detail result for each match
-
-div.panel.panel-default.fixed-layout.detail-result
-  table.table.table-condensed width="#{400+100*@users.count}px;"
-    thead
-      th.col-xs-3.match-name Match
-      th.col-xs-1 Result
-      - @users.each do |user|
-        th.col-xs-1 =user.name
-
-div.div-table-content.fixed-layout.detail-result
-  table.table.table-hover.table-condensed width="#{400+100*@users.count}px;"
-    tbody
-      - Match.all.each do |match|
-        - if match.closed?
-          tr
-            td.col-xs-3 =render "shared/match_name", match: match
-            td.col-xs-1 =match.mainscores
-            - @users.each do |user|
-              - p = Prediction.find_by(match: match, user: user)
-              - if p.present?
-                = render "shared/prediction_score", prediction: p
-              - else
-                td.col-xs-1.not-available -
-      tr
-        td.col-xs-3
-        td.col-xs-1
-        - @users.each do |user|
-          td.col-xs-1.user-score =user.score
+- @layout_width = "#{400+100*@users.count}px;"
+table.table.table-hover.fixed-header width=@layout_width
+  thead
+    th.px300 Match
+    th.px100 Result
+    - @users.each do |user|
+      th.px100 =user.name
+  tbody
+    - Match.all.each do |match|
+      - if match.closed?
+        tr
+          td.px300 =render "shared/match_name", match: match
+          td.px100 =match.mainscores
+          - @users.each do |user|
+            - p = Prediction.find_by(match: match, user: user)
+            - if p.present?
+              = render "shared/prediction_score", prediction: p, tdclass: "px100"
+            - else
+              td.px100.not-available -
+  tr
+    td.px300
+    td.px100
+    - @users.each do |user|
+      td.col-xs-1.px100.user-score =user.score
 

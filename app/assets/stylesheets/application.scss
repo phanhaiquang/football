@@ -4,6 +4,8 @@
 @import 'shared/modalsearch';
 @import "flag-icon-sass";
 
+$fix-header-height: 70vh;
+
 .prediction.btn-enabled:hover {
   background-color: lightblue;
 }
@@ -68,18 +70,28 @@ footer {
 }
 
 .div-table-content {
-  height: 70vh;
+  height: $fix-header-height;
   overflow-y:auto;
 }
 
-.fixed-layout {
-  table {
-    table-layout: fixed;
-  }
+table {
+  &.fixed-header {
+    table-layout: inherit;
 
-  &.detail-result {
-    .col-xs-3 { width: 300px; }
-    .col-xs-2 { width: 200px; }
-    .col-xs-1 { width: 100px; }
+    tr { float: left; }
+
+    td { overflow: hidden; }
+
+    tbody {
+      max-height: $fix-header-height;
+      overflow-y:scroll;
+      display: block;
+    }
+
+    /*bootstrap auto adjust columns' width so that we need to tie them*/
+    .px300 { width: 300px !important; min-width: 300px !important; max-width: 300px !important;}
+    .px200 { width: 200px !important; min-width: 200px !important; max-width: 200px !important;}
+    .px100 { width: 100px !important; min-width: 100px !important; max-width: 100px !important;}
   }
 }
+
