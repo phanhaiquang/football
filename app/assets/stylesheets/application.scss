@@ -71,3 +71,9 @@ footer {
   height: 70vh;
   overflow-y:auto;
 }
+
+.fixed-layout {
+  .col-xs-3 { width: 300px; }
+  .col-xs-2 { width: 200px; }
+  .col-xs-1 { width: 100px; }
+}
