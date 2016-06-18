@@ -1,1 +1,1 @@
-td class=(prediction.score==1? "active" : (prediction.score==2? "danger"  : "") ) =defined?(score) ? score : prediction.mainscores
+td class=("col-xs-1 " + (prediction.score==1? "active" : (prediction.score==2? "danger"  : "") )) =defined?(score) ? score : prediction.mainscores

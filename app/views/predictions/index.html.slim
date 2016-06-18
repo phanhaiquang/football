@@ -3,34 +3,37 @@ h1 Listing Predictions
 - if @predictions.count == 0
   p You don't have any prediction yet !!!
 -else
-  table.table.table-hover
-    thead
-      tr
-        th #
-        th Match
-        th Result
-        th Prediction
-        th Score
-        th Updated at
-        th colspan="3" 
+  div.panel.panel-default
+    table.table.table-condensed
+      thead
+        tr
+          th.col-xs-1  #
+          th.col-xs-3  Match
+          th.col-xs-1  Result
+          th.col-xs-1  Prediction
+          th.col-xs-1  Score
+          th.col-xs-1  Updated at
+          th.col-xs-1  colspan="3" 
 
-    tbody
-      - @predictions.each_with_index do |prediction, index|
-        tr.clickable href="#{can?(:edit, prediction) ? edit_prediction_path(prediction) : prediction_path(prediction)}"
-          td = index + 1
-          td = render "shared/match_name", match: prediction.match
-          td = prediction.closed? ? "#{prediction.match.mainscore1} - #{prediction.match.mainscore2}" : "Not available"
-          td = prediction.mainscores
-          = render "shared/prediction_score", prediction: prediction, score: prediction.score
-          td = prediction.updated_at.to_s(:match)
-          td.text-right
-            - if can?(:destroy, prediction)
-              = link_to 'Destroy', prediction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
-      td
-      td
-      td
-      td
-      td.btn-danger = current_user.score
+  div.div-table-content
+    table.table.table-hover
+      tbody
+        - @predictions.each_with_index do |prediction, index|
+          tr.clickable href="#{can?(:edit, prediction) ? edit_prediction_path(prediction) : prediction_path(prediction)}"
+            td.col-xs-1  = index + 1
+            td.col-xs-3  = render "shared/match_name", match: prediction.match
+            td.col-xs-1  = prediction.closed? ? "#{prediction.match.mainscore1} - #{prediction.match.mainscore2}" : "Not available"
+            td.col-xs-1  = prediction.mainscores
+            = render "shared/prediction_score", prediction: prediction, score: prediction.score
+            td.col-xs-1  = prediction.updated_at.to_s(:match)
+            td.col-xs-1.text-right
+              - if can?(:destroy, prediction)
+                = link_to 'Destroy', prediction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
+        td
+        td
+        td
+        td
+        td.btn-danger = current_user.score
 
 div.col-xs-12
   hr
