@@ -1,7 +1,7 @@
 h2 Detail result for each match
 
 div.panel.panel-default.fixed-layout.detail-result
-  table.table.table-condensed
+  table.table.table-condensed width="#{400+100*@users.count}px;"
     thead
       th.col-xs-3.match-name Match
       th.col-xs-1 Result
@@ -9,7 +9,7 @@ div.panel.panel-default.fixed-layout.detail-result
         th.col-xs-1 =user.name
 
 div.div-table-content.fixed-layout.detail-result
-  table.table.table-hover.table-condensed
+  table.table.table-hover.table-condensed width="#{400+100*@users.count}px;"
     tbody
       - Match.all.each do |match|
         - if match.closed?
