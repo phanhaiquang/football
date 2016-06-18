@@ -1,6 +1,6 @@
 h2 Detail result for each match
 
-div.panel.panel-default.fixed-layout
+div.panel.panel-default.fixed-layout.detail-result
   table.table.table-condensed
     thead
       th.col-xs-3.match-name Match
@@ -8,7 +8,7 @@ div.panel.panel-default.fixed-layout
       - @users.each do |user|
         th.col-xs-1 =user.name
 
-div.div-table-content.fixed-layout
+div.div-table-content.fixed-layout.detail-result
   table.table.table-hover.table-condensed
     tbody
       - Match.all.each do |match|

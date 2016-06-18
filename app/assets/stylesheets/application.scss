@@ -73,7 +73,13 @@ footer {
 }
 
 .fixed-layout {
-  .col-xs-3 { width: 300px; }
-  .col-xs-2 { width: 200px; }
-  .col-xs-1 { width: 100px; }
+  table {
+    table-layout: fixed;
+  }
+
+  &.detail-result {
+    .col-xs-3 { width: 300px; }
+    .col-xs-2 { width: 200px; }
+    .col-xs-1 { width: 100px; }
+  }
 }
