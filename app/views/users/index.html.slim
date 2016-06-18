@@ -3,17 +3,18 @@ h2 Detail result for each match
 div.panel.panel-default
   table.table.table-condensed
     thead
-      th.col-xs-2.match-name Match
+      th.col-xs-3.match-name Match
       th.col-xs-1 Result
       - @users.each do |user|
         th.col-xs-1 =user.name
 
-  div.div-table-content
-    table.table.table-hover.table-condensed
+div.div-table-content
+  table.table.table-hover.table-condensed
+    tbody
       - Match.all.each do |match|
         - if match.closed?
           tr
-            td.col-xs-2 =render "shared/match_name", match: match
+            td.col-xs-3 =render "shared/match_name", match: match
             td.col-xs-1 =match.mainscores
             - @users.each do |user|
               - p = Prediction.find_by(match: match, user: user)
@@ -22,7 +23,7 @@ div.panel.panel-default
               - else
                 td.col-xs-1.not-available -
       tr
-        td.col-xs-2
+        td.col-xs-3
         td.col-xs-1
         - @users.each do |user|
           td.col-xs-1.user-score =user.score
