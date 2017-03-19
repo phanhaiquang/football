@@ -1,3 +1,5 @@
+User.create!(email: 'test@example.com', password: 'password', admin: true)
+
 Team.create!([
   {name: "Croatia", score: nil, coach: nil, status: true},
   {name: "Czech Republic", score: nil, coach: nil, status: true},
@@ -23,7 +25,8 @@ Team.create!([
   {name: "Hungary", score: 0, coach: nil, status: true},
   {name: "Portugal", score: 0, coach: nil, status: true},
   {name: "Iceland", score: 0, coach: nil, status: true}
-])
+]) if Team.count == 0
+
 Match.create!([
   {team1_id: 7, team2_id: 16, time: "2016-06-10 19:00:00"},
   {team1_id: 1, team2_id: 21, time: "2016-06-11 13:00:00"},
@@ -61,4 +64,4 @@ Match.create!([
   {team1_id: 10, team2_id: 2, time: "2016-06-22 16:00:00"},
   {team1_id: 20, team2_id: 3, time: "2016-06-22 19:00:00"},
   {team1_id: 11, team2_id: 15, time: "2016-06-22 19:00:00"}
-])
+]) if Match.count == 0

@@ -1,0 +1,29 @@
+version: '2'
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=
+      - LC_ALL=C.UTF-8
+  box:
+    image: busybox
+    volumes:
+      - /box
+  app:
+    image: quangphan/webapp
+    command: ./bin/start.sh
+    volumes:
+      - .:/app
+    volumes_from:
+      - box
+    ports:
+      - "3000:3000"
+    environment:
+      - PG_USERNAME=postgres
+      - PG_PASSWORD=
+      - PG_HOST=db
+    depends_on:
+      - box
+    links:
+      - db
