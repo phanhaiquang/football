@@ -12,7 +12,7 @@ test:
 
 development:
   <<: *default
-  database: football_dev
+  database: <%= ENV['PG_DATABASE'] %>
 
 production:
   <<: *default
