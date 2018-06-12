@@ -21,6 +21,6 @@ The system to predict a football match with your friends
 
 * Demo
 
-  https://euro2016prediction.herokuapp.com
-
+  https://dudoanbongda.herokuapp.com
+  
 Have fun !
