@@ -7,6 +7,9 @@ class Prediction < ActiveRecord::Base
   #FIXME
   after_save :update_score
   def update_score
+    if (Score.where("user_id = ? AND cup_id = ?", self.user_id, self.cup_id).count == 0)
+      Score.create(:user_id => user_id, :cup_id => cup_id, :score => 0)
+    end
     match.update_score
   end
 

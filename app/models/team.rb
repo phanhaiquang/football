@@ -42,4 +42,8 @@ class Team < ActiveRecord::Base
     end
     update_attributes(score: score)
   end
+
+  def cup
+    Cup.find(cup_id)
+  end
 end

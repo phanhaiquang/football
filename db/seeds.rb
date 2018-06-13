@@ -1,4 +1,12 @@
-User.create!(email: 'test@example.com', password: 'password', admin: true)
+User.create!([
+  {email: 'test@example.com', password: 'password', admin: true},
+  {email: 'user@example.com', password: '1234abcd', admin: false}
+])
+
+Cup.create!([
+  {name: "Euro 2016", host: "France", logo: "euro2016.jpg", start_date: "2016-06-10", end_date: "2016-07-10"},
+  {name: "World Cup 2018", host: "Russia", logo: "worldcup2018.jpg", start_date: "2018-06-14", end_date: "2018-07-15"}
+]) if Cup.count == 0
 
 Team.create!([
   {name: "Croatia", score: nil, coach: nil, status: true},
@@ -65,3 +73,11 @@ Match.create!([
   {team1_id: 20, team2_id: 3, time: "2016-06-22 19:00:00"},
   {team1_id: 11, team2_id: 15, time: "2016-06-22 19:00:00"}
 ]) if Match.count == 0
+
+if Score.count == 0
+  User.all.each do |u|
+    Cup.all.each do |c|
+      Score.create({:user_id => u.id, :cup_id => c.id, :score => 0});
+    end
+  end
+end

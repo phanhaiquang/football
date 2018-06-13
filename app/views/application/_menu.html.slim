@@ -1,10 +1,12 @@
 div.navbar-collapse.collapse.nav-app-collapse
     ul.nav.navbar-nav
-        li: a href="https://en.wikipedia.org/wiki/UEFA_Euro_2016" target='_blank'
-            =image_tag("http://i0.wp.com/www.tutkuyuz.net/wp-content/uploads/2014/01/euro_2016.jpg", class: "menu-logo", alt: "EURO 2016")
-        li: a href=teams_path Teams
-        li: a href=matches_path Matches
-        li: a href=predictions_path Predictions
-        li: a href=users_index_path Result
-        li: a href=destroy_user_session_path data-method="delete" Sign-out 
-                (#{current_user.name if current_user})
+        li: a href=cups_path Select Cup
+        - if params[:cup_id].present?
+          li: a href=teams_path(:cup_id => params[:cup_id]) Teams
+          li: a href=matches_path(:cup_id => params[:cup_id]) Matches
+          li: a href=predictions_path(:cup_id => params[:cup_id]) Predictions
+          li: a href=users_index_path(:cup_id => params[:cup_id]) Leaderboard
+        - if current_user
+          li: a href=edit_user_path Change Password 
+          li: a href=destroy_user_session_path data-method="delete" Sign-out 
+                (#{current_user.name})

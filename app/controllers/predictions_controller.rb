@@ -1,11 +1,12 @@
 class PredictionsController < ApplicationController
   load_and_authorize_resource param_method: :prediction_params
   before_action :set_prediction, only: [:show, :edit, :update, :destroy]
+  before_action :set_cup, only: [:index, :create, :new]
 
   # GET /predictions
   # GET /predictions.json
   def index
-    @predictions = current_user.predictions
+    @predictions = current_user.predictions.where(cup_id: @cup.id)
   end
 
   # GET /predictions/1
@@ -17,6 +18,7 @@ class PredictionsController < ApplicationController
   def new
     @prediction = Prediction.new
     @prediction.user_id = current_user.id
+    @prediction.cup_id = @cup.id
   end
 
   # GET /predictions/1/edit
@@ -28,6 +30,7 @@ class PredictionsController < ApplicationController
   def create
     @prediction = Prediction.new(prediction_params)
     @prediction.user_id = current_user.id
+    @prediction.cup_id = @cup.id
 
     respond_to do |format|
       if @prediction.save
@@ -59,7 +62,7 @@ class PredictionsController < ApplicationController
   def destroy
     @prediction.destroy
     respond_to do |format|
-      format.html { redirect_to predictions_url, notice: 'Prediction was successfully destroyed.' }
+      format.html { redirect_to predictions_path(:cup_id => @prediction.cup_id), notice: 'Prediction was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -67,9 +70,12 @@ class PredictionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_prediction
-      @prediction = Prediction.find(params[:id])
+      @prediction = Prediction.find(params[:prediction_id])
     end
 
+    def set_cup
+      @cup = Cup.find(params[:cup_id])
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def prediction_params
       params.require(:prediction).permit(:match_id, :mainscore1, :mainscore2)

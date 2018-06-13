@@ -30,9 +30,9 @@ table.table
 hr
 
 - if can?(:create, Match)
-  = link_to 'New Match', new_match_path, class: "btn btn-primary"
+  = link_to 'New Match', new_match_path(:cup_id => @match.cup_id), class: "btn btn-primary"
   | |
 - if can?(:edit, @match)
   = link_to 'Edit', edit_match_path(@match), class: "btn btn-primary"
   | |
-= link_to 'Back', matches_path, class: "btn btn-primary"
+= link_to 'Back', matches_path(:cup_id => @match.cup_id), class: "btn btn-primary"

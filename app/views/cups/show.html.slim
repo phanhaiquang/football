@@ -1,0 +1,59 @@
+h2 Cup information
+
+table.table
+  tr
+    th.col-xs-4 Name 
+    th.col-xs-4= @cup.name
+  tr
+    td Host
+    td= @cup.host
+  tr
+    td Logo
+    td= image_tag(@cup.logo, class: "flag-icon")
+  tr
+    td Start date
+    td= @cup.start_date
+  tr
+    td End date
+    td= @cup.end_date
+
+hr
+
+- if @nextmatch
+  div.panel.panel-default
+    table.table.table-cond:wensed
+      thead
+        tr
+          th.col-xs-3 Next Match
+          th.col-xs-3 Time
+  div.div-table-content
+    table.table.table-hover.table-condensed
+      tbody
+        tr.clickable href="#{match_path(@nextmatch.id)}"
+          td.col-xs-3 = render "shared/match_name", match: @nextmatch
+          td.col-xs-3 = @nextmatch.time.to_s(:match)
+
+- if @prematch
+  div.panel.panel-default
+    table.table.table-cond:wensed
+      thead
+        tr
+          th.col-xs-1 Previous Match
+          th.col-xs-1 Time
+          th.col-xs-1 Status
+          th.col-xs-1 Score
+          th.col-xs-2 Prediction winner(s)
+  div.div-table-content
+    table.table.table-hover.table-condensed
+      tbody
+        tr.clickable href="#{match_path(@prematch.id)}"
+          td.col-xs-1 = render "shared/match_name", match: @prematch
+          td.col-xs-1 = @prematch.time.to_s(:match)
+          td.col-xs-1 = @prematch.closed? ? 'Finished' : ''
+          td.col-xs-1 = @prematch.mainscores
+          td.col-xs-2 = @prematch.prediction_winners.map(&:name).join(", ")
+
+- if can?(:edit, @cup)
+  = link_to 'Edit', edit_cup_path(@cup), class: "btn btn-primary"
+  |  | 
+= link_to 'Back', cups_path, class: "btn btn-primary"

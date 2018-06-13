@@ -10,13 +10,8 @@ class User < ActiveRecord::Base
   def name
     email.gsub(/@.*/, '')
   end
-
-  def update_score
-    score = 0
-    self.predictions.each do |prediction|
-      score += prediction.win?    ? 2 :
-               prediction.subwin? ? 1 : 0
-    end
-    update_attributes(score: score)
+  
+  def get_score(cup_id_a)
+    (Score.where("user_id = ? AND cup_id = ?", self, cup_id_a).count == 0)? 0 : Score.where("user_id = ? AND cup_id = ?", self, cup_id_a).first.score 
   end
 end

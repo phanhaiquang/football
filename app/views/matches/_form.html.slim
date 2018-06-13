@@ -11,10 +11,10 @@
   fieldset.col-xs-6
     div.field.form-group
       = f.label :team1_id, class: "form-left"
-      = f.collection_select :team1_id, Team.all, :id, :name, class: "form-right"
+      = f.collection_select :team1_id, @match.cup.teams, :id, :name, class: "form-right"
     div.field.form-group
       = f.label :team2_id, class: "form-left"
-      = f.collection_select :team2_id, Team.all, :id, :name, class: "form-right"
+      = f.collection_select :team2_id, @match.cup.teams, :id, :name, class: "form-right"
     div.field.form-group
       = f.label :time, class: "form-left"
       = f.datetime_select :time, class: "form-right"

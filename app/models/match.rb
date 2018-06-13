@@ -68,8 +68,12 @@ class Match < ActiveRecord::Base
   end
 
   def update_users_score
-    User.all.each do |user|
-      user.update_score
+    Score.all.each do |score|
+      score.update_score
     end
+  end
+
+  def cup
+    Cup.find(cup_id)
   end
 end

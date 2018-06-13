@@ -1,7 +1,7 @@
-h1 Listing Matches
+h2 Listing Matches For #{@cup.name}
 
 div.panel.panel-default
-  table.table.table-condensed
+  table.table.table-cond:wensed
     thead
       tr
         th.col-xs-1 #
@@ -25,11 +25,11 @@ div.div-table-content
           td.col-xs-2 = match.prediction_winners.map(&:name).join(", ")
           td.col-xs-1.text-right
             - if can?(:destroy, match)
-              = link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger btn-one-col'
+              = link_to 'Destroy', delete_match_path(match), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger btn-one-col'
             - if can?(:edit, match)
               = link_to 'Edit', edit_match_path(match), class: 'btn btn-xs btn-warning btn-one-col btn-enabled'
 
 hr
 
 - if can?(:create, Match)
-  = link_to 'New Match', new_match_path, class: "btn btn-primary"
+  = link_to 'New Match', new_match_path(:cup_id => @cup.id), class: "btn btn-primary"

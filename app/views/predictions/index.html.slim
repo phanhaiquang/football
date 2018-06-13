@@ -28,14 +28,14 @@ h1 Listing Predictions
             td.col-xs-1  = prediction.updated_at.to_s(:match)
             td.col-xs-1.text-right
               - if can?(:destroy, prediction)
-                = link_to 'Destroy', prediction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
+                = link_to 'Destroy', delete_prediction_path(prediction), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
         td
         td
         td
         td
-        td.btn-danger = current_user.score
+        td.btn-danger = current_user.get_score(@cup.id)
 
 div.col-xs-12
   hr
   - if can?(:create, Prediction)
-    = link_to 'New Prediction', new_prediction_path, class: 'btn btn-primary'
+    = link_to 'New Prediction', new_prediction_path(:cup_id => @cup.id), class: 'btn btn-primary'

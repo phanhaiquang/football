@@ -1,19 +1,19 @@
 h2 Detail result for each match
-- @layout_width = "#{400+100*@users.count}px;"
+- @layout_width = "#{400+100*@userscores.count}px;"
 table.table.table-hover.fixed-header width=@layout_width
   thead
     th.px300 Match
     th.px100 Result
-    - @users.each do |user|
-      th.px100 =user.name
+    - @userscores.each do |userscore|
+      th.px100 =userscore.user.name
   tbody
-    - Match.all.each do |match|
+    - @matchs.all.each do |match|
       - if match.closed?
         tr
           td.px300 =render "shared/match_name", match: match
           td.px100 =match.mainscores
-          - @users.each do |user|
-            - p = Prediction.find_by(match: match, user: user)
+          - @userscores.each do |userscore|
+            - p = Prediction.find_by(match: match, user: userscore.user)
             - if p.present?
               = render "shared/prediction_score", prediction: p, tdclass: "px100"
             - else
@@ -21,6 +21,6 @@ table.table.table-hover.fixed-header width=@layout_width
   tr
     td.px300
     td.px100
-    - @users.each do |user|
-      td.col-xs-1.px100.user-score =user.score
+    - @userscores.each do |userscore|
+      td.col-xs-1.px100.user-score =userscore.score
 

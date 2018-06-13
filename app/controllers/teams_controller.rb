@@ -1,11 +1,12 @@
 class TeamsController < ApplicationController
   load_and_authorize_resource param_method: :team_params
   before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_action :set_cup, only: [:index, :create, :new]
 
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.all.order('score desc nulls last')
+    @teams = @cup.teams.order('score desc nulls last')
   end
 
   # GET /teams/1
@@ -16,6 +17,7 @@ class TeamsController < ApplicationController
   # GET /teams/new
   def new
     @team = Team.new
+    @team.cup_id = @cup.id
   end
 
   # GET /teams/1/edit
@@ -26,6 +28,7 @@ class TeamsController < ApplicationController
   # POST /teams.json
   def create
     @team = Team.new(team_params)
+    @team.cup_id = @cup.id
 
     respond_to do |format|
       if @team.save
@@ -57,7 +60,7 @@ class TeamsController < ApplicationController
   def destroy
     @team.destroy
     respond_to do |format|
-      format.html { redirect_to teams_url, notice: 'Team was successfully destroyed.' }
+      format.html { redirect_to teams_path(:cup_id => @team.cup_id), notice: 'Team was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -65,9 +68,12 @@ class TeamsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_team
-      @team = Team.find(params[:id])
+      @team = Team.find(params[:team_id])
     end
 
+    def set_cup
+      @cup = Cup.find(params[:cup_id])
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
       params.require(:team).permit(:name, :score, :coach)
