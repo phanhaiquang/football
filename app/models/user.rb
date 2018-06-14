@@ -15,4 +15,8 @@ class User < ActiveRecord::Base
     score_user_at_cup = Score.where(user: self, cup: cup)
     score_user_at_cup.count == 0 ? 0 : score_user_at_cup.first.score 
   end
+
+  def inactive?(cup)
+    (predictions.where('user_id = ? AND cup_id = ?', id, cup).count == 0)
+  end
 end
