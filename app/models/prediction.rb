@@ -1,12 +1,14 @@
 class Prediction < ActiveRecord::Base
   belongs_to :match
   belongs_to :user
+  belongs_to :cup
 
   validate :validate_match
 
-  #FIXME
   after_save :update_score
+
   def update_score
+    Score.find_or_create_by(user: user, cup: cup)
     match.update_score
   end
 

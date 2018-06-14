@@ -4,4 +4,4 @@ h1 New Prediction
 
 div.col-xs-12
   hr
-  = link_to 'Back', predictions_path, class: 'btn btn-primary'
+  = link_to 'Back', predictions_path(cup_id: @cup.id), class: 'btn btn-primary'

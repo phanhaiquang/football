@@ -13,10 +13,7 @@ table.table
 
 div.col-xs-12
   hr
-  - if can?(:create, Prediction)
-    = link_to 'New prediction', new_prediction_path, class: "btn btn-primary"
-    | |
   - if can?(:edit, @prediction)
     = link_to 'Edit', edit_prediction_path(@prediction), class: "btn btn-primary"
     | |
-  = link_to 'Back', predictions_path, class: "btn btn-primary btn-warning"
+  = link_to 'Back', predictions_path(cup_id: @prediction.cup_id), class: "btn btn-primary btn-warning"

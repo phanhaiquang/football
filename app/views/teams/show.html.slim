@@ -53,4 +53,4 @@ hr
 - if can?(:edit, @team)
   = link_to 'Edit', edit_team_path(@team), class: "btn btn-primary"
   | |
-= link_to 'Back', teams_path, class: "btn btn-primary"
+= link_to 'Back', teams_path(cup_id: @team.cup_id), class: "btn btn-primary"

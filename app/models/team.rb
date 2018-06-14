@@ -1,6 +1,8 @@
 class Team < ActiveRecord::Base
+  belongs_to :cup
+
   def matches
-    Match.where("team1_id = ? OR team2_id = ?", self, self)
+    Match.where(cup: cup).where("team1_id = ? OR team2_id = ?", self, self)
   end
 
   def total_matches_count

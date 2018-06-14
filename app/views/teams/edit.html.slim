@@ -6,4 +6,4 @@ div.col-xs-12
   hr
   = link_to 'Show', @team, class: "btn btn-primary"
   | |
-  = link_to 'Back', teams_path, class: "btn btn-primary"
+  = link_to 'Back', teams_path(cup_id: @team.cup_id), class: "btn btn-primary"

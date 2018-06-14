@@ -1,0 +1,29 @@
+div.col-xs-6
+  = form_for(@cup) do |f|
+    - if @cup.errors.any?
+      div#error_explanation
+        h2= pluralize(@cup.errors.count, "error")
+        | prohibited this cup from being saved:
+
+        ul
+        - @cup.errors.full_messages.each do |message|
+          li= message
+
+    div.field.form-group
+      = f.label :name, class: "form-left"
+      = f.text_field :name, class: "form-right"
+    div.field.form-group
+      = f.label :host, class: "form-left"
+      = f.text_field :host, class: "form-right"
+    div.field.form-group
+      = f.label :logo, class: "form-left"
+      = f.text_field :logo, class: "form-right"
+    div.field.form-group
+      = f.label :start_date, class: "form-left"
+      = f.date_select :start_date, class: "form-right"
+    div.field.form-group
+      = f.label :end_date, class: "form-left"
+      = f.date_select :end_date, class: "form-right"
+    div.field.form-group
+      div.actions
+        = f.submit "Submit", class: "form-left btn btn-primary"

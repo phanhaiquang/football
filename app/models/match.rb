@@ -2,6 +2,7 @@ class Match < ActiveRecord::Base
   belongs_to :team1, class_name: "Team", foreign_key: "team1_id"
   belongs_to :team2, class_name: "Team", foreign_key: "team2_id"
   has_many :predictions
+  belongs_to :cup
 
   default_scope { order(:time) }
 
@@ -45,6 +46,11 @@ class Match < ActiveRecord::Base
     User.where(id: Prediction.where(match: self, mainscore1: mainscore1, mainscore2: mainscore2).map(&:user_id))
   end
 
+  def prediction_winners_names
+    prediction_winners.map(&:name).join(", ")
+  end
+
+
   def equal?
     closed? && (mainscore1 == mainscore2) 
   end
@@ -55,6 +61,10 @@ class Match < ActiveRecord::Base
 
   def closed?
     status == true
+  end
+
+  def human_status
+    closed? ? 'Finished' : ''
   end
 
   def update_score
@@ -68,8 +78,8 @@ class Match < ActiveRecord::Base
   end
 
   def update_users_score
-    User.all.each do |user|
-      user.update_score
+    Score.all.each do |score|
+      score.update_score
     end
   end
 end

@@ -1,4 +1,4 @@
-h1 Listing Teams
+h2 Listing Teams For #{@cup.name}
 
 div.panel.panel-default
   table.table.table-condensed
@@ -33,11 +33,11 @@ div.div-table-content
           td class="col-xs-1 #{team.status ? "success" : "danger"}" = team.status ? "Playing" : "Stopped"
           td.col-xs-1.text-right
             - if can?(:destroy, team)
-              = link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
+              = link_to 'Destroy', delete_team_path(team), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
             - if can?(:edit, team)
               = link_to 'Edit', edit_team_path(team), class: 'btn btn-xs btn-warning btn-one-col btn-enabled'
 
 hr
 
 - if can?(:create, Team)
-  = link_to 'New Team', new_team_path, class: 'btn btn-primary'
+  = link_to 'New Team', new_team_path(cup_id: @cup.id), class: 'btn btn-primary'

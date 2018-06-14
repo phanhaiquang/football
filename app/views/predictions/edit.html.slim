@@ -5,6 +5,6 @@ h1 Editing Prediction
 div.col-xs-12
   hr
   - if can?(:create, Prediction)
-    = link_to 'New prediction', new_prediction_path, class: "btn btn-primary"
+    = link_to 'New prediction', new_prediction_path(cup_id: @prediction.cup_id), class: "btn btn-primary"
     | |
-  = link_to 'Back', predictions_path, class: "btn btn-primary"
+  = link_to 'Back', predictions_path(cup_id: @prediction.cup_id), class: "btn btn-primary"
