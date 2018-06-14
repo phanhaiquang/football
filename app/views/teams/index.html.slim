@@ -40,4 +40,4 @@ div.div-table-content
 hr
 
 - if can?(:create, Team)
-  = link_to 'New Team', new_team_path(:cup_id => @cup.id), class: 'btn btn-primary'
+  = link_to 'New Team', new_team_path(cup_id: @cup.id), class: 'btn btn-primary'

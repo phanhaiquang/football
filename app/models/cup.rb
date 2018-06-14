@@ -1,7 +1,6 @@
 class Cup < ActiveRecord::Base
-  def matches
-    Match.where("cup_id = ?", self)
-  end
+  has_many :matches, dependent: :destroy
+  has_many :teams, dependent: :destroy
 
   def total_matches_count
     matches.count
@@ -17,9 +16,5 @@ class Cup < ActiveRecord::Base
 
   def on_going
     start_date <= Date.today && end_date >= Date.today
-  end
-
-  def teams
-    Team.where("cup_id = ?", self)
   end
 end

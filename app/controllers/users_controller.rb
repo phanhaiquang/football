@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+
   def index
-    @userscores = Score.where(id: Score.where(cup_id: params[:cup_id]).ids - Score.where(user_id: User.where(admin: true).map{|u| u.id}).map{|s| s.id}).order('score desc')
+    admin_ids = Score.where(user_id: User.where(admin: true).ids).ids
+    ids = Score.where(cup_id: params[:cup_id]).ids - admin_ids
+    @userscores = Score.where(id: ids).order('score desc')
     @cup = Cup.find(params[:cup_id])
     @matchs = @cup.matches
   end
@@ -24,8 +27,10 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    # NOTE: Using `strong_parameters` gem
-    params.require(:user).permit(:current_password, :password, :password_confirmation)
+    params.require(:user).permit(
+      :current_password,
+      :password,
+      :password_confirmation
+    )
   end
-
 end

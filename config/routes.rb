@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  # FIXME: restructure these routes by "resource" and "scope"
   get     'cups'              => "cups#index",      as: :cups
   post    'cups'              => "cups#create"
   get     'cups/new'          => "cups#new",        as: :new_cup

@@ -6,4 +6,4 @@ div.col-xs-12
   hr
   = link_to 'Show', @match, class: "btn btn-primary"
   | |
-  = link_to 'Back', matches_path(:cup_id => @match.cup_id), class: "btn btn-primary"
+  = link_to 'Back', matches_path(cup_id: @match.cup_id), class: "btn btn-primary"

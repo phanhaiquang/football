@@ -49,9 +49,9 @@ hr
         tr.clickable href="#{match_path(@prematch.id)}"
           td.col-xs-1 = render "shared/match_name", match: @prematch
           td.col-xs-1 = @prematch.time.to_s(:match)
-          td.col-xs-1 = @prematch.closed? ? 'Finished' : ''
+          td.col-xs-1 = @prematch.human_status
           td.col-xs-1 = @prematch.mainscores
-          td.col-xs-2 = @prematch.prediction_winners.map(&:name).join(", ")
+          td.col-xs-2 = @prematch.prediction_winners_names
 
 - if can?(:edit, @cup)
   = link_to 'Edit', edit_cup_path(@cup), class: "btn btn-primary"

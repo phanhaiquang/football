@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
     email.gsub(/@.*/, '')
   end
   
-  def get_score(cup_id_a)
-    (Score.where("user_id = ? AND cup_id = ?", self, cup_id_a).count == 0)? 0 : Score.where("user_id = ? AND cup_id = ?", self, cup_id_a).first.score 
+  def get_score(cup)
+    score_user_at_cup = Score.where(user: self, cup: cup)
+    score_user_at_cup.count == 0 ? 0 : score_user_at_cup.first.score 
   end
 end

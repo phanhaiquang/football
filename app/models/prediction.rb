@@ -1,15 +1,14 @@
 class Prediction < ActiveRecord::Base
   belongs_to :match
   belongs_to :user
+  belongs_to :cup
 
   validate :validate_match
 
-  #FIXME
   after_save :update_score
+
   def update_score
-    if (Score.where("user_id = ? AND cup_id = ?", self.user_id, self.cup_id).count == 0)
-      Score.create(:user_id => user_id, :cup_id => cup_id, :score => 0)
-    end
+    Score.find_or_create_by(user: user, cup: cup)
     match.update_score
   end
 

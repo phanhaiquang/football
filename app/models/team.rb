@@ -1,6 +1,8 @@
 class Team < ActiveRecord::Base
+  belongs_to :cup
+
   def matches
-    Match.where("team1_id = ? OR team2_id = ?", self, self)
+    Match.where(cup: cup).where("team1_id = ? OR team2_id = ?", self, self)
   end
 
   def total_matches_count
@@ -41,9 +43,5 @@ class Team < ActiveRecord::Base
       score += match.equal? ? 1 : (match.winner == self ? 3 : 0)
     end
     update_attributes(score: score)
-  end
-
-  def cup
-    Cup.find(cup_id)
   end
 end

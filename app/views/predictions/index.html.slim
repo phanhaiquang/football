@@ -33,9 +33,9 @@ h1 Listing Predictions
         td
         td
         td
-        td.btn-danger = current_user.get_score(@cup.id)
+        td.btn-danger = current_user.get_score(@cup)
 
 div.col-xs-12
   hr
   - if can?(:create, Prediction)
-    = link_to 'New Prediction', new_prediction_path(:cup_id => @cup.id), class: 'btn btn-primary'
+    = link_to 'New Prediction', new_prediction_path(cup_id: @cup.id), class: 'btn btn-primary'
