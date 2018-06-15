@@ -70,13 +70,11 @@ footer {
 }
 
 .div-table-content {
-  height: $fix-header-height;
+  height: auto !important;
   overflow-y:auto;
 }
 
 table {
-  height: auto !important;
-  
   &.fixed-header {
     table-layout: inherit;
 
