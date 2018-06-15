@@ -83,6 +83,7 @@ table {
     td { overflow: hidden; }
 
     tbody {
+      height: auto !important;
       max-height: $fix-header-height;
       overflow-y:scroll;
       display: block;
