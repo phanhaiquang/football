@@ -4,7 +4,7 @@ class PredictionsController < ApplicationController
   before_action :set_cup, only: [:index, :create, :new]
 
   def index
-    @predictions = current_user.predictions.where(cup_id: @cup.id)
+    @predictions = current_user.predictions.where(cup_id: @cup.id).order(:match_id)
   end
 
   def show; end
