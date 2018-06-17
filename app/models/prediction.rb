@@ -5,6 +5,8 @@ class Prediction < ActiveRecord::Base
 
   validate :validate_match
 
+  validates :match_id, uniqueness: { scope: :user_id, message: "one prediction per match for each user" }
+
   after_save :update_score
 
   def update_score
