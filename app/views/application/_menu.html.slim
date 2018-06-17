@@ -1,6 +1,9 @@
 div.navbar-collapse.collapse.nav-app-collapse
     ul.nav.navbar-nav
         li: a href=cups_path Select Cup
+        - if @cup
+          li: a href=cup_path(:cup_id => @cup.id)
+              =image_tag(@cup.logo, class: "menu-logo", alt: @cup.name) 
         - if params[:cup_id].present?
           li: a href=teams_path(:cup_id => params[:cup_id]) Teams
           li: a href=matches_path(:cup_id => params[:cup_id]) Matches
