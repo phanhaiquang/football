@@ -4,11 +4,10 @@ div.navbar-collapse.collapse.nav-app-collapse
         - if @cup
           li: a href=cup_path(:cup_id => @cup.id)
               =image_tag(@cup.logo, class: "menu-logo", alt: @cup.name) 
-        - if params[:cup_id].present?
-          li: a href=teams_path(:cup_id => params[:cup_id]) Teams
-          li: a href=matches_path(:cup_id => params[:cup_id]) Matches
-          li: a href=predictions_path(:cup_id => params[:cup_id]) Predictions
-          li: a href=users_index_path(:cup_id => params[:cup_id]) Leaderboard
+          li: a href=teams_path(:cup_id => @cup.id) Teams
+          li: a href=matches_path(:cup_id => @cup.id) Matches
+          li: a href=predictions_path(:cup_id => @cup.id) Predictions
+          li: a href=users_index_path(:cup_id => @cup.id) Leaderboard
         - if current_user
           li: a href=edit_user_path Change Password 
           li: a href=destroy_user_session_path data-method="delete" Sign-out 

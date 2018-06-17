@@ -7,7 +7,9 @@ class PredictionsController < ApplicationController
     @predictions = current_user.predictions.where(cup_id: @cup.id).order(:match_id)
   end
 
-  def show; end
+  def show
+    @cup = @prediction.cup
+  end
 
   def new
     @prediction = Prediction.new(
