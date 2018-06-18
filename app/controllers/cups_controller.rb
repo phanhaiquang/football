@@ -7,10 +7,8 @@ class CupsController < ApplicationController
   end
 
   def show
-    @nextmatches = @cup.matches.where("time >= ?", Time.now).order(:time)
-    @nextmatch = @nextmatches.first if @nextmatches.count > 0
-    @prematches = @cup.matches.where("time <= ?", Time.now).order(:time)
-    @prematch = @prematches.last if @prematches.count > 0
+    @nextmatches = @cup.matches.where("time >= ?", Time.now).order(time: :asc).first(5)
+    @prematches = @cup.matches.where("time <= ?", Time.now).reorder(time: :desc).first(5)
   end
 
   def new

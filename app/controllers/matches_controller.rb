@@ -8,6 +8,7 @@ class MatchesController < ApplicationController
   end
 
   def show
+    @cup = @match.cup
   end
 
   def new

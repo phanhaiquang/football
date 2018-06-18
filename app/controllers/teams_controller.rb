@@ -7,7 +7,9 @@ class TeamsController < ApplicationController
     @teams = @cup.teams.order('score desc nulls last')
   end
 
-  def show; end
+  def show
+    @cup = @team.cup
+  end
 
   def new
     @team = Team.new

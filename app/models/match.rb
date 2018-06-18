@@ -64,7 +64,7 @@ class Match < ActiveRecord::Base
   end
 
   def human_status
-    closed? ? 'Finished' : ''
+    closed? ? 'Finished' : started? ? 'Started' : ''
   end
 
   def update_score

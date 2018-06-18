@@ -29,6 +29,16 @@ table.table
 
 hr
 
+- @predictions = @match.predictions.where(user: current_user)
+- if @predictions.count > 0
+  - @prediction = @predictions.first
+  - if can?(:edit, @prediction)
+    = link_to 'Edit Prediction', edit_prediction_path(@prediction), class: "btn btn-primary"
+    | |
+- if @predictions.count == 0
+  - if can?(:create, Prediction)
+    = link_to 'New Prediction', new_prediction_path(cup_id: @match.cup_id), class: 'btn btn-primary'
+    | |
 - if can?(:create, Match)
   = link_to 'New Match', new_match_path(cup_id: @match.cup_id), class: "btn btn-primary"
   | |
