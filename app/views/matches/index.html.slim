@@ -9,6 +9,7 @@ div.panel.panel-default
         th.col-xs-1 Time
         th.col-xs-1 Status
         th.col-xs-1 Score
+        th.col-xs-1 Your Prediction
         th.col-xs-2 Prediction winner(s)
         th.col-xs-1 colspan="3"
 
@@ -22,6 +23,10 @@ div.div-table-content
           td.col-xs-1 = match.time.to_s(:match)
           td.col-xs-1 = match.human_status
           td.col-xs-1 = match.mainscores
+          - if match.prediction_of(@current_user)
+            td.col-xs-1 = match.prediction_of(@current_user).mainscores
+          - else
+            td.col-xs-1 Not available
           td.col-xs-2 = match.prediction_winners_names
           td.col-xs-1.text-right
             - if can?(:destroy, match)
