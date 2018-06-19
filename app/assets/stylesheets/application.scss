@@ -72,6 +72,7 @@ footer {
 .div-table-content {
   height: auto !important;
   overflow-y:auto;
+  max-height: $fix-header-height;
 }
 
 table {
