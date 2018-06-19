@@ -14,6 +14,7 @@ div.panel.panel-default
         th.col-xs-1 Goal for
         th.col-xs-1 Goal Against
         th.col-xs-1 Status
+        th.col-xs-1 Group
         th.col-xs-1 colspan="3"
 
 div.div-table-content
@@ -31,6 +32,7 @@ div.div-table-content
           td.col-xs-1 = team.goal_for
           td.col-xs-1 = team.goal_against
           td class="col-xs-1 #{team.status ? "success" : "danger"}" = team.status ? "Playing" : "Stopped"
+          td.col-xs-1 = team.cup_group
           td.col-xs-1.text-right
             - if can?(:destroy, team)
               = link_to 'Destroy', delete_team_path(team), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
