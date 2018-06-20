@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
   before_action :set_cup, only: [:index, :create, :new]
 
   def index
-    @teams = @cup.teams.order('cup_group asc, score desc nulls last')
+    @teams = @cup.teams.sort_by{ |t| [t.cup_group, -t.score, t.goal_against-t.goal_for, -t.goal_for] }
   end
 
   def show
