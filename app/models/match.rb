@@ -82,4 +82,20 @@ class Match < ActiveRecord::Base
       score.update_score
     end
   end
+
+  def update_result
+    uri = URI.parse("http://api.football-data.org/v1/competitions/"+cup.result_id.to_s+"/fixtures")
+    http = Net::HTTP.new(uri.host, uri.port)
+    resp = http.get(uri.request_uri)
+    data = JSON.parse(resp.body)
+    match_results = data['fixtures'].select{|m| (m['homeTeamName'] == team1.name && m['awayTeamName'] == team2.name)}
+    if match_results.count > 0
+      if match_results.last['status'] == 'IN_PLAY'
+        update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: false)
+      end
+      if match_results.last['status'] == 'FINISHED'
+        update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: true)
+      end
+    end
+  end
 end

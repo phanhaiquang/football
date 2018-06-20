@@ -4,6 +4,7 @@ class MatchesController < ApplicationController
   before_action :set_cup, only: [:index, :create, :new]
 
   def index
+    @cup.update_result
     @matches = @cup.matches.order(:time)
   end
 
