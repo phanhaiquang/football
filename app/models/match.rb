@@ -46,6 +46,10 @@ class Match < ActiveRecord::Base
     User.where(id: Prediction.where(match: self, mainscore1: mainscore1, mainscore2: mainscore2).map(&:user_id))
   end
 
+  def prediction_winners_count
+    prediction_winners.count
+  end
+
   def prediction_winners_names
     prediction_winners.map(&:name).join(", ")
   end

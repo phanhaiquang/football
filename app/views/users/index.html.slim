@@ -15,7 +15,7 @@ table.table.table-hover.fixed-header width=@layout_width
           - @userscores.each do |userscore|
             - p = Prediction.find_by(match: match, user: userscore.user)
             - if p.present?
-              = render "shared/prediction_score", prediction: p, tdclass: "px100"
+              = render "shared/prediction_score", prediction: p, tdclass: "px100", reward: 1
             - else
               td.px100.not-available -
   tr

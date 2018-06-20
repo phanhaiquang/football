@@ -24,4 +24,7 @@ class Cup < ActiveRecord::Base
     end
   end
 
+  def active_users_count
+    User.select{|u| !u.inactive?(self)}.count
+  end
 end
