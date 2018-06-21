@@ -102,4 +102,12 @@ class Match < ActiveRecord::Base
       end
     end
   end
+
+  def valid_users
+    cup.active_users.select{|u| u.predictions.first.match.id <= id}
+  end
+
+  def valid_users_count
+    valid_users.count
+  end
 end

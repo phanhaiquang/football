@@ -8,7 +8,6 @@ class UsersController < ApplicationController
     @userscores = Score.where(id: ids).order('score desc')
     @cup = Cup.find(params[:cup_id])
     @matchs = @cup.matches
-    @cup.update_result
   end
 
   def edit

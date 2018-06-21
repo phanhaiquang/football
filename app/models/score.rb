@@ -10,4 +10,8 @@ class Score < ActiveRecord::Base
     end
     update_attributes(score: score)
   end
+
+  def total_reward
+    user.predictions_of_cup(cup).to_a.sum(&:reward)
+  end
 end

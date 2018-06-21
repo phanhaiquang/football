@@ -48,4 +48,8 @@ class Prediction < ActiveRecord::Base
         ((match.mainscore1 >  match.mainscore2) && (mainscore1 >  mainscore2)) ||
         ((match.mainscore1 <  match.mainscore2) && (mainscore1 <  mainscore2)) ))
   end
+
+  def reward
+    win? ? (cup.reward_percent*cup.match_fee*match.valid_users_count/match.prediction_winners_count).round : 0
+  end
 end

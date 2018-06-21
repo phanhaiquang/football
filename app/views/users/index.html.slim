@@ -15,12 +15,14 @@ table.table.table-hover.fixed-header width=@layout_width
           - @userscores.each do |userscore|
             - p = Prediction.find_by(match: match, user: userscore.user)
             - if p.present?
-              = render "shared/prediction_score", prediction: p, tdclass: "px100", reward: 1
+              = render "shared/prediction_score", prediction: p, tdclass: "px100"
             - else
               td.px100.not-available -
   tr
     td.px300
     td.px100
     - @userscores.each do |userscore|
-      td.col-xs-1.px100.user-score =userscore.score
-
+      td.col-xs-1.px100.user-score 
+        =userscore.score
+        span  | 
+        =userscore.total_reward
