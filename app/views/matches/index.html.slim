@@ -11,10 +11,7 @@ div.panel.panel-default
         th.col-xs-1 Score
         th.col-xs-1 Your Prediction
         th.col-xs-3 Prediction winner(s)
-        - if can?(:destroy, match)
-          th.col-xs-1 colspan="1"
-        - if can?(:edit, match)
-          th.col-xs-1 colspan="1"
+        th.col-xs-1 colspan="3"
 
 div.div-table-content
   table.table.table-hover.table-condensed
@@ -31,11 +28,10 @@ div.div-table-content
           - else
             td.col-xs-1 Not available
           td.col-xs-3 = match.prediction_winners_names
-          - if can?(:destroy, match)
-            td.col-xs-1.text-right
+          td.col-xs-1.text-right
+            - if can?(:destroy, match)
               = link_to 'Destroy', delete_match_path(match), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger btn-one-col'
-          - if can?(:edit, match)
-            td.col-xs-1.text-right
+            - if can?(:edit, match)
               = link_to 'Edit', edit_match_path(match), class: 'btn btn-xs btn-warning btn-one-col btn-enabled'
 
 hr
