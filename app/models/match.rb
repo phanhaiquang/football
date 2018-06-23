@@ -73,7 +73,8 @@ class Match < ActiveRecord::Base
 
   def update_score
     update_teams_score
-    update_users_score
+    update_predictions_reward
+    update_users_score_reward
   end
 
   def update_teams_score
@@ -81,9 +82,16 @@ class Match < ActiveRecord::Base
     team2.update_score
   end
 
-  def update_users_score
+  def update_predictions_reward
+    predictions.all.each do |prediction|
+      next if !prediction.win?
+      prediction.update_attributes(reward: (cup.reward_percent*cup.match_fee*valid_users_count/prediction_winners_count).round)
+    end
+  end
+
+  def update_users_score_reward
     Score.all.each do |score|
-      score.update_score
+      score.update_score_reward
     end
   end
 
