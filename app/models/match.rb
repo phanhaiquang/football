@@ -100,7 +100,17 @@ class Match < ActiveRecord::Base
     http = Net::HTTP.new(uri.host, uri.port)
     resp = http.get(uri.request_uri)
     data = JSON.parse(resp.body)
-    match_results = data['fixtures'].select{|m| (m['homeTeamName'] == team1.name && m['awayTeamName'] == team2.name)}
+    if team1.name == "South Korea"
+      home_team_name = "Korea Republic"
+    else
+      home_team_name = team1.name
+    end
+    if team2.name == "South Korea"
+      away_team_name = "Korea Republic"
+    else
+      away_team_name = team2.name
+    end
+    match_results = data['fixtures'].select{|m| (m['homeTeamName'] == home_team_name && m['awayTeamName'] == away_team_name)}
     if match_results.count > 0
       if match_results.last['status'] == 'IN_PLAY'
         update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: false)
