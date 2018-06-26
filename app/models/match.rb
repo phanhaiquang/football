@@ -80,6 +80,12 @@ class Match < ActiveRecord::Base
   def update_teams_score
     team1.update_score
     team2.update_score
+    if team1.played_matches.count == 3
+      team1.update_status
+    end
+    if team2.played_matches.count == 3
+      team2.update_status
+    end
   end
 
   def update_predictions_reward
