@@ -26,6 +26,7 @@ hr
         tr
           th.col-xs-3 Next Match(es)
           th.col-xs-3 Time
+          th.col-xs-3 Bet Priority
           th.col-xs-3 Your Prediction
   div.div-table-content
     table.table.table-hover.table-condensed
@@ -34,8 +35,12 @@ hr
           tr.clickable href="#{match_path(match.id)}"
             td.col-xs-3 = render "shared/match_name", match: match
             td.col-xs-3 = match.time.to_s(:match)
+            td.col-xs-3 = match.priorities
             - if match.prediction_of(@current_user)
-              td.col-xs-3 = match.prediction_of(@current_user).mainscores
+              - if match.knockout?
+                td.col-xs-3 = match.prediction_of(@current_user).winner_team.name
+              - else
+                td.col-xs-3 = match.prediction_of(@current_user).mainscores
             - else
               td.col-xs-3 Not available
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180622141759) do
+ActiveRecord::Schema.define(version: 20180630060922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,11 +22,12 @@ ActiveRecord::Schema.define(version: 20180622141759) do
     t.string   "logo"
     t.date     "start_date"
     t.date     "end_date"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.integer  "result_id"
     t.integer  "match_fee"
     t.float    "reward_percent"
+    t.integer  "knockout_match_fee"
   end
 
   create_table "matches", force: :cascade do |t|
@@ -41,6 +42,9 @@ ActiveRecord::Schema.define(version: 20180622141759) do
     t.boolean  "status",     default: false
     t.datetime "time"
     t.integer  "cup_id",     default: 1
+    t.boolean  "knockout"
+    t.float    "prior1"
+    t.float    "prior2"
   end
 
   add_index "matches", ["cup_id"], name: "index_matches_on_cup_id", using: :btree
@@ -64,9 +68,10 @@ ActiveRecord::Schema.define(version: 20180622141759) do
     t.integer  "user_id"
     t.integer  "cup_id"
     t.integer  "score"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "reward"
+    t.integer  "knockout_reward"
   end
 
   add_index "scores", ["cup_id"], name: "index_scores_on_cup_id", using: :btree

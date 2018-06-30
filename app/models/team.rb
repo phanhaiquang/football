@@ -10,7 +10,7 @@ class Team < ActiveRecord::Base
   end
 
   def played_matches
-    matches.where(status: true)
+    matches.where(status: true, knockout: false)
   end
 
   def won_matches

@@ -61,7 +61,10 @@ class MatchesController < ApplicationController
         :mainscore1,
         :mainscore2,
         :subscore1,
-        :subscore2
+        :subscore2,
+        :knockout,
+        :prior1,
+        :prior2
       )
     end
 end

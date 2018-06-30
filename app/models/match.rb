@@ -28,6 +28,18 @@ class Match < ActiveRecord::Base
     "#{subscore1} - #{subscore2}"
   end
 
+  def priorities
+    if !prior1.nil? && prior1 > 0
+      "#{team1.name} #{prior1}"
+    else 
+      if !prior2.nil? &&prior2 > 0 
+        "#{team2.name} #{prior2}"
+      else
+        "-"
+      end
+    end
+  end
+
   def winner
     if closed?
       mainscore1 > mainscore2 ? team1 :
@@ -43,7 +55,11 @@ class Match < ActiveRecord::Base
   end
 
   def prediction_winners
-    User.where(id: Prediction.where(match: self, mainscore1: mainscore1, mainscore2: mainscore2).map(&:user_id))
+    if knockout?
+      User.where(id: predictions.select{|p| p.win?}.map(&:user_id))
+    else
+      User.where(id: Prediction.where(match: self, mainscore1: mainscore1, mainscore2: mainscore2).map(&:user_id))
+    end
   end
 
   def prediction_winners_count
@@ -89,9 +105,16 @@ class Match < ActiveRecord::Base
   end
 
   def update_predictions_reward
-    predictions.all.each do |prediction|
-      next if !prediction.win?
-      prediction.update_attributes(reward: (cup.reward_percent*cup.match_fee*valid_users_count/prediction_winners_count).round)
+    if knockout?
+      predictions.all.each do |prediction|
+        next if !prediction.win?
+        prediction.update_attributes(reward: (cup.knockout_match_fee*predictions.count/prediction_winners_count).round)
+      end
+    else
+      predictions.all.each do |prediction|
+        next if !prediction.win?
+        prediction.update_attributes(reward: (cup.reward_percent*cup.match_fee*valid_users_count/prediction_winners_count).round)
+      end
     end
   end
 

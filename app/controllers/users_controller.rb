@@ -6,8 +6,11 @@ class UsersController < ApplicationController
     inactive_ids = Score.where(user_id: User.select{|u| u.inactive?(params[:cup_id])}.map{|u| u.id}).ids
     ids = Score.where(cup_id: params[:cup_id]).ids - admin_ids - inactive_ids
     @userscores = Score.where(id: ids).order('score desc')
+    @userknockoutrewards = Score.where(id: ids).order('knockout_reward desc')
     @cup = Cup.find(params[:cup_id])
-    @matchs = @cup.matches
+    @groupmatches = @cup.matches.where(knockout: false)
+    @knockoutmatches = @cup.matches.where(knockout: true)
+    @stage = params[:stage]
   end
 
   def edit

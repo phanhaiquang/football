@@ -7,6 +7,9 @@ table.table
   tr
     td Time
     td= @match.time.to_s(:match)
+  tr
+    td Stage
+    td= @match.knockout? ? "Knockout" : "Group"
   - if @match.started?
     tr
       td Status
@@ -18,6 +21,13 @@ table.table
     tr
       td Sub score
       td= @match.subscores
+  - if @match.prior1.present? && @match.prior2.present?
+    tr
+      td Bet priority
+      td= @match.priorities
+  tr
+    td Number of Prediction(s)
+    td= @match.predictions.count
   tr
     td Predictions winner(s)
     td= @match.prediction_winners_names
