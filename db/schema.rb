@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180630060922) do
+ActiveRecord::Schema.define(version: 20180701022750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20180630060922) do
     t.integer  "match_fee"
     t.float    "reward_percent"
     t.integer  "knockout_match_fee"
+    t.integer  "save_reward"
   end
 
   create_table "matches", force: :cascade do |t|
