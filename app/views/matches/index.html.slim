@@ -22,7 +22,7 @@ div.div-table-content
           td.col-xs-3 = render "shared/match_name", match: match
           td.col-xs-1 = match.time.to_s(:match)
           td.col-xs-1 = match.human_status
-          td.col-xs-1 = match.mainscores
+          td.col-xs-1 = match.fullscores
           - if match.prediction_of(@current_user)
             - if match.knockout?
               td.col-xs-1 = match.prediction_of(@current_user).winner_team.name

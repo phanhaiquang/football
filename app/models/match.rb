@@ -28,6 +28,18 @@ class Match < ActiveRecord::Base
     "#{subscore1} - #{subscore2}"
   end
 
+  def fullscores
+    if !subscore1.nil? && !subscore2.nil?
+      if !penscore1.nil? && !penscore2.nil?
+        subscores + " (#{penscore1} - #{penscore2})"
+      else
+        subscores
+      end
+    else
+      mainscores
+    end
+  end
+
   def priorities
     if !prior1.nil? && prior1 > 0
       "#{team1.name} #{prior1}"
@@ -42,15 +54,39 @@ class Match < ActiveRecord::Base
 
   def winner
     if closed?
-      mainscore1 > mainscore2 ? team1 :
-      mainscore1 < mainscore2 ? team2 : nil
+      if !subscore1.nil? && !subscore2.nil? && !penscore1.nil? && !penscore2.nil?
+        subscore1 > subscore2 ? team1 :
+        subscore1 < subscore2 ? team2 :
+        penscore1 > penscore2 ? team1 :
+        penscore1 < penscore2 ? team2 : nil
+      else
+        if !subscore1.nil? && !subscore2.nil?
+          subscore1 > subscore2 ? team1 :
+          subscore1 < subscore2 ? team2 : nil
+        else
+          mainscore1 > mainscore2 ? team1 :
+          mainscore1 < mainscore2 ? team2 : nil
+        end
+      end
     end
   end
 
   def looser
     if closed?
-      mainscore1 > mainscore2 ? team2 :
-      mainscore1 < mainscore2 ? team1 : nil
+      if !subscore1.nil? && !subscore2.nil? && !penscore1.nil? && !penscore2.nil?
+        subscore1 > subscore2 ? team2 :
+        subscore1 < subscore2 ? team1 :
+        penscore1 > penscore2 ? team2 :
+        penscore1 < penscore2 ? team1 : nil
+      else
+        if !subscore1.nil? && !subscore2.nil?
+          subscore1 > subscore2 ? team2 :
+          subscore1 < subscore2 ? team1 : nil
+        else
+          mainscore1 > mainscore2 ? team2 :
+          mainscore1 < mainscore2 ? team1 : nil
+        end
+      end
     end
   end
 
@@ -69,7 +105,6 @@ class Match < ActiveRecord::Base
   def prediction_winners_names
     prediction_winners.map(&:name).join(", ")
   end
-
 
   def equal?
     closed? && (mainscore1 == mainscore2) 
@@ -97,12 +132,15 @@ class Match < ActiveRecord::Base
     if !knockout?
       team1.update_score
       team2.update_score
-    end
-    if team1.played_matches.count == 3
-      team1.update_status
-    end
-    if team2.played_matches.count == 3
-      team2.update_status
+      if team1.played_matches.count == 3
+        team1.update_status
+      end
+      if team2.played_matches.count == 3
+        team2.update_status
+      end
+    else
+      winner.update_attributes(status: true)
+      looser.update_attributes(status: false)
     end
   end
 
@@ -149,10 +187,26 @@ class Match < ActiveRecord::Base
       match_results = data['fixtures'].select{|m| (m['homeTeamName'] == home_team_name && m['awayTeamName'] == away_team_name)}
       if match_results.count > 0
         if match_results.last['status'] == 'IN_PLAY'
-          update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: false)
+          if match_results.last.key?('extraTime')
+            if match_results.last.key?('penaltyShootout')
+              update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], subscore1: match_results.last['extraTime']['goalsHomeTeam'], subscore2: match_results.last['extraTime']['goalsAwayTeam'], penscore1: match_results.last['penaltyShootout']['goalsHomeTeam'], penscore2: match_results.last['penaltyShootout']['goalsAwayTeam'], status: false)
+            else
+              update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], subscore1: match_results.last['extraTime']['goalsHomeTeam'], subscore2: match_results.last['extraTime']['goalsAwayTeam'], status: false)
+            end
+          else
+            update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: false)
+          end
         end
         if match_results.last['status'] == 'FINISHED'
-          update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: true)
+          if match_results.last.key?('extraTime')
+            if match_results.last.key?('penaltyShootout')
+              update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], subscore1: match_results.last['extraTime']['goalsHomeTeam'], subscore2: match_results.last['extraTime']['goalsAwayTeam'], penscore1: match_results.last['penaltyShootout']['goalsHomeTeam'], penscore2: match_results.last['penaltyShootout']['goalsAwayTeam'], status: true)
+            else
+              update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], subscore1: match_results.last['extraTime']['goalsHomeTeam'], subscore2: match_results.last['extraTime']['goalsAwayTeam'], status: true)
+            end
+          else
+            update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: true)
+          end
         end
       end
     end

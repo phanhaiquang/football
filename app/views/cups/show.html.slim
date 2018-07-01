@@ -62,7 +62,7 @@ hr
             td.col-xs-2 = render "shared/match_name", match: match
             td.col-xs-1 = match.time.to_s(:match)
             td.col-xs-1 = match.human_status
-            td.col-xs-1 = match.mainscores
+            td.col-xs-1 = match.fullscores
             td.col-xs-2 = match.prediction_winners_names
 
 - if can?(:edit, @cup)

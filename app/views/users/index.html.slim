@@ -40,7 +40,7 @@ h2 Detail result for each match
         - if match.closed?
           tr
             td.px300 =render "shared/match_name", match: match
-            td.px100 =match.mainscores
+            td.px100 =match.fullscores
             - @userknockoutrewards.each do |u|
               - p = Prediction.find_by(match: match, user: u.user)
               - if p.present?

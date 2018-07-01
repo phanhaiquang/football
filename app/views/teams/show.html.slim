@@ -45,7 +45,7 @@ table.table
   - @team.matches.each do |match|
     tr
       td = render "shared/match_name", match: match
-      td = match.mainscores
+      td = match.fullscores
       - if match.knockout?
         td = p = match.prediction_of(current_user); p.winner_team.name if p.present?
       - else

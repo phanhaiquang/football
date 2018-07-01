@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180701022750) do
+ActiveRecord::Schema.define(version: 20180701030733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 20180701022750) do
     t.boolean  "knockout"
     t.float    "prior1"
     t.float    "prior2"
+    t.integer  "penscore1"
+    t.integer  "penscore2"
   end
 
   add_index "matches", ["cup_id"], name: "index_matches_on_cup_id", using: :btree
