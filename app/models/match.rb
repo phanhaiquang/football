@@ -94,8 +94,10 @@ class Match < ActiveRecord::Base
   end
 
   def update_teams_score
-    team1.update_score
-    team2.update_score
+    if !knockout?
+      team1.update_score
+      team2.update_score
+    end
     if team1.played_matches.count == 3
       team1.update_status
     end

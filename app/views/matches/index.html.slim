@@ -24,7 +24,10 @@ div.div-table-content
           td.col-xs-1 = match.human_status
           td.col-xs-1 = match.mainscores
           - if match.prediction_of(@current_user)
-            td.col-xs-1 = match.prediction_of(@current_user).mainscores
+            - if match.knockout?
+              td.col-xs-1 = match.prediction_of(@current_user).winner_team.name
+            - else
+              td.col-xs-1 = match.prediction_of(@current_user).mainscores
           - else
             td.col-xs-1 Not available
           td.col-xs-3 = match.prediction_winners_names
