@@ -149,6 +149,7 @@ class Match < ActiveRecord::Base
       if prediction_winners_count == 0
         cup.update_attributes(save_reward: cup.knockout_match_fee*predictions.count)
       else
+        cup.update_attributes(save_reward: 0)
         predictions.all.each do |prediction|
           next if !prediction.win?
           prediction.update_attributes(reward: ((cup.knockout_match_fee*predictions.count+cup.save_reward)/prediction_winners_count).round)
