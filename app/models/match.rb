@@ -31,9 +31,9 @@ class Match < ActiveRecord::Base
   def fullscores
     if !subscore1.nil? && !subscore2.nil?
       if !penscore1.nil? && !penscore2.nil?
-        "#{mainscore1+subscore1} - #{mainscore2+subscore2}" + " (#{penscore1} - #{penscore2})"
+        subscores + " (#{penscore1} - #{penscore2})"
       else
-        "#{mainscore1+subscore1} - #{mainscore2+subscore2}"
+        subscores
       end
     else
       mainscores
