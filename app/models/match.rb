@@ -13,7 +13,7 @@ class Match < ActiveRecord::Base
   end
 
   def name
-    team1.name + ' vs ' + team2.name + " (#{time.to_s(:match)})"
+    team1.name + (prior1.nil? ? '' : "("+prior1.to_s+")") + ' vs ' + team2.name + (prior2.nil? ? '' : "("+prior2.to_s+")") + " (#{time.to_s(:match)})"
   end
 
   def short_name
