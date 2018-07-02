@@ -5,8 +5,8 @@ class UsersController < ApplicationController
     admin_ids = Score.where(user_id: User.where(admin: true).ids).ids
     inactive_ids = Score.where(user_id: User.select{|u| u.inactive?(params[:cup_id])}.map{|u| u.id}).ids
     ids = Score.where(cup_id: params[:cup_id]).ids - admin_ids - inactive_ids
-    @userscores = Score.where(id: ids).order('score desc')
-    @userknockoutrewards = Score.where(id: ids).order('knockout_reward desc')
+    @userscores = Score.where(id: ids).order('score desc null last')
+    @userknockoutrewards = Score.where(id: ids).order('knockout_reward desc null last')
     @cup = Cup.find(params[:cup_id])
     @groupmatches = @cup.matches.where(knockout: false)
     @knockoutmatches = @cup.matches.where(knockout: true)
