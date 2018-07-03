@@ -54,4 +54,4 @@ h2 Detail result for each match
         td.col-xs-1.px100.user-score 
           =u.knockout_reward
           span  | 
-          =u.knockout_reward-u.predictions_of_stage(@cup, true).count*@cup.knockout_match_fee
+          =u.knockout_reward-u.user.predictions_of_stage(@cup, true).count*@cup.knockout_match_fee
