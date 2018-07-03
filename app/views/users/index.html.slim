@@ -53,3 +53,5 @@ h2 Detail result for each match
       - @userknockoutrewards.each do |u|
         td.col-xs-1.px100.user-score 
           =u.knockout_reward
+          span  | 
+          =u.knockout_reward-u.predictions_of_stage(@cup, true).count*@cup.knockout_match_fee
