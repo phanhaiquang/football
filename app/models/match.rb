@@ -123,9 +123,9 @@ class Match < ActiveRecord::Base
   end
 
   def update_score
-    #update_teams_score
-    #update_predictions_reward
-    #update_users_score_reward
+    update_teams_score
+    update_predictions_reward
+    update_users_score_reward
   end
 
   def update_teams_score
