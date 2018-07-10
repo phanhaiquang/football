@@ -5,13 +5,15 @@ class UsersController < ApplicationController
     @cup = Cup.find(params[:cup_id])
     @stage = params[:stage]
     admin_ids = Score.where(user_id: User.where(admin: true).ids).ids
-    inactive_ids = Score.where(user_id: User.select{|u| u.inactive?(@cup)}.map{|u| u.id}).ids + Score.where(user_id: User.select{|u| u.predictions_of_stage(@cup, true).count == 0}.map{|u| u.id}).ids
-    ids = Score.where(cup_id: @cup.id).ids - admin_ids - inactive_ids
     if @stage == 'group'
+      inactive_ids = Score.where(user_id: User.select{|u| u.predictions_of_stage(@cup, false).count == 0}.map{|u| u.id}).ids
+      ids = Score.where(cup_id: @cup.id).ids - admin_ids - inactive_ids
       @userscores = Score.where(id: ids).order('score desc nulls last')
       @groupmatches = @cup.matches.where(knockout: false)
     end
     if @stage == 'knockout'
+      inactive_ids = Score.where(user_id: User.select{|u| u.predictions_of_stage(@cup, true).count == 0}.map{|u| u.id}).ids
+      ids = Score.where(cup_id: @cup.id).ids - admin_ids - inactive_ids
       @userknockoutrewards = Score.where(id: ids).sort_by{ |u| [-u.knockout_profit] }
       @knockoutmatches = @cup.matches.where(knockout: true)
     end
