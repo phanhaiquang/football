@@ -21,5 +21,14 @@ class Score < ActiveRecord::Base
     end
     update_attributes(reward: reward)
     update_attributes(knockout_reward: knockout_reward)
+    knockout_fee = 0
+    user.predictions_of_stage(cup, true).each do |p|
+      knockout_fee += p.match.fee
+    end
+    update_attributes(knockout_fee: knockout_fee)
+  end
+
+  def knockout_profit
+    knockout_reward - knockout_fee
   end
 end

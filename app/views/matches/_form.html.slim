@@ -48,6 +48,9 @@
     div.field.form-group
       = f.label :knockout, class: "form-left"
       = f.select :knockout, [['Group stage', false], ['Knockout stage', true]], class: "form-right"
+    div.field.form-group
+      = f.label :fee, class: "form-left"
+      = f.number_field :fee, class: "form-right"
     br
     div.field.form-group
       div.actions

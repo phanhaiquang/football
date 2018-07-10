@@ -123,9 +123,9 @@ class Match < ActiveRecord::Base
   end
 
   def update_score
-    update_teams_score
-    update_predictions_reward
-    update_users_score_reward
+    #update_teams_score
+    #update_predictions_reward
+    #update_users_score_reward
   end
 
   def update_teams_score
@@ -147,11 +147,11 @@ class Match < ActiveRecord::Base
   def update_predictions_reward
     if knockout?
       if prediction_winners_count == 0
-        cup.update_attributes(save_reward: cup.knockout_match_fee*predictions.count)
+        cup.update_attributes(save_reward: fee*predictions.count)
       else
         predictions.all.each do |prediction|
           if prediction.win?
-            prediction.update_attributes(reward: ((cup.knockout_match_fee*predictions.count+cup.save_reward)/prediction_winners_count).round)
+            prediction.update_attributes(reward: ((fee*predictions.count+cup.save_reward)/prediction_winners_count).round)
           else
             prediction.update_attributes(reward: 0)
           end
@@ -161,7 +161,7 @@ class Match < ActiveRecord::Base
     else
       predictions.all.each do |prediction|
         if prediction.win?
-          prediction.update_attributes(reward: (cup.reward_percent*cup.match_fee*valid_users_count/prediction_winners_count).round)
+          prediction.update_attributes(reward: (cup.reward_percent*fee*valid_users_count/prediction_winners_count).round)
         else
           prediction.update_attributes(reward: 0)
         end

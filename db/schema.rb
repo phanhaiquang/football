@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180701030733) do
+ActiveRecord::Schema.define(version: 20180710140220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,12 +22,10 @@ ActiveRecord::Schema.define(version: 20180701030733) do
     t.string   "logo"
     t.date     "start_date"
     t.date     "end_date"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "result_id"
-    t.integer  "match_fee"
     t.float    "reward_percent"
-    t.integer  "knockout_match_fee"
     t.integer  "save_reward"
   end
 
@@ -48,6 +46,7 @@ ActiveRecord::Schema.define(version: 20180701030733) do
     t.float    "prior2"
     t.integer  "penscore1"
     t.integer  "penscore2"
+    t.integer  "fee"
   end
 
   add_index "matches", ["cup_id"], name: "index_matches_on_cup_id", using: :btree
@@ -75,6 +74,7 @@ ActiveRecord::Schema.define(version: 20180701030733) do
     t.datetime "updated_at",      null: false
     t.integer  "reward"
     t.integer  "knockout_reward"
+    t.integer  "knockout_fee"
   end
 
   add_index "scores", ["cup_id"], name: "index_scores_on_cup_id", using: :btree

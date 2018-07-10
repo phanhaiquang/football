@@ -66,7 +66,8 @@ class MatchesController < ApplicationController
         :penscore2,
         :knockout,
         :prior1,
-        :prior2
+        :prior2,
+        :fee
       )
     end
 end

@@ -15,6 +15,9 @@ table.table
       td Status
       td= @match.closed? ? "Finished" : "Started"
   tr
+    td Fee
+    td= @match.fee
+  tr
     td Score
     td= @match.fullscores
   - if @match.prior1.present? && @match.prior2.present?
