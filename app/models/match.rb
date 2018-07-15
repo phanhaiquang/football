@@ -148,6 +148,9 @@ class Match < ActiveRecord::Base
     if knockout?
       if prediction_winners_count == 0
         cup.update_attributes(save_reward: fee*predictions.count)
+        predictions.all.each do |prediction|
+          prediction.update_attributes(reward: 0)
+        end
       else
         predictions.all.each do |prediction|
           if prediction.win?
