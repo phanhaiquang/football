@@ -1,1 +1,4 @@
-td class=((defined?(tdclass) ? tdclass : "col-xs-1") + " " + (prediction.score==1? "success" : (prediction.score==2? "danger"  : "") )) =defined?(score) ? score : prediction.mainscores
+td class=((defined?(tdclass) ? tdclass : "col-xs-1") + " " + (prediction.score==1? "success" : (prediction.score==2? "danger"  : "") )) 
+  =defined?(score) ? score : prediction.mainscores
+  span  | 
+  =prediction.reward

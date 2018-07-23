@@ -10,7 +10,7 @@ div.panel.panel-default
         th.col-xs-1 Status
         th.col-xs-1 Score
         th.col-xs-1 Your Prediction
-        th.col-xs-2 Prediction winner(s)
+        th.col-xs-3 Prediction winner(s)
         th.col-xs-1 colspan="3"
 
 div.div-table-content
@@ -27,7 +27,7 @@ div.div-table-content
             td.col-xs-1 = match.prediction_of(@current_user).mainscores
           - else
             td.col-xs-1 Not available
-          td.col-xs-2 = match.prediction_winners_names
+          td.col-xs-3 = match.prediction_winners_names
           td.col-xs-1.text-right
             - if can?(:destroy, match)
               = link_to 'Destroy', delete_match_path(match), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger btn-one-col'

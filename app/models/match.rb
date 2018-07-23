@@ -46,6 +46,10 @@ class Match < ActiveRecord::Base
     User.where(id: Prediction.where(match: self, mainscore1: mainscore1, mainscore2: mainscore2).map(&:user_id))
   end
 
+  def prediction_winners_count
+    prediction_winners.count
+  end
+
   def prediction_winners_names
     prediction_winners.map(&:name).join(", ")
   end
@@ -69,7 +73,8 @@ class Match < ActiveRecord::Base
 
   def update_score
     update_teams_score
-    update_users_score
+    update_predictions_reward
+    update_users_score_reward
   end
 
   def update_teams_score
@@ -77,9 +82,40 @@ class Match < ActiveRecord::Base
     team2.update_score
   end
 
-  def update_users_score
-    Score.all.each do |score|
-      score.update_score
+  def update_predictions_reward
+    predictions.all.each do |prediction|
+      next if !prediction.win?
+      prediction.update_attributes(reward: (cup.reward_percent*cup.match_fee*valid_users_count/prediction_winners_count).round)
     end
+  end
+
+  def update_users_score_reward
+    Score.all.each do |score|
+      score.update_score_reward
+    end
+  end
+
+  def update_result
+    uri = URI.parse("http://api.football-data.org/v1/competitions/"+cup.result_id.to_s+"/fixtures")
+    http = Net::HTTP.new(uri.host, uri.port)
+    resp = http.get(uri.request_uri)
+    data = JSON.parse(resp.body)
+    match_results = data['fixtures'].select{|m| (m['homeTeamName'] == team1.name && m['awayTeamName'] == team2.name)}
+    if match_results.count > 0
+      if match_results.last['status'] == 'IN_PLAY'
+        update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: false)
+      end
+      if match_results.last['status'] == 'FINISHED'
+        update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: true)
+      end
+    end
+  end
+
+  def valid_users
+    cup.active_users.select{|u| u.predictions_of_cup(cup).first.match.id <= id}
+  end
+
+  def valid_users_count
+    valid_users.count
   end
 end

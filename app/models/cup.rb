@@ -17,4 +17,18 @@ class Cup < ActiveRecord::Base
   def on_going
     start_date <= Date.today && end_date >= Date.today
   end
+
+  def update_result
+    matches.select{|match| (match.started? && !match.closed?)}.each do |m|
+      m.update_result
+    end
+  end
+
+  def active_users
+    User.select{|u| !u.inactive?(self)}
+  end
+
+  def active_users_count
+    active_users.count
+  end
 end

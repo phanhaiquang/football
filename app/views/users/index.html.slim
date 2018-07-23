@@ -22,5 +22,7 @@ table.table.table-hover.fixed-header width=@layout_width
     td.px300
     td.px100
     - @userscores.each do |userscore|
-      td.col-xs-1.px100.user-score =userscore.score
-
+      td.col-xs-1.px100.user-score 
+        =userscore.score
+        span  | 
+        =userscore.reward
