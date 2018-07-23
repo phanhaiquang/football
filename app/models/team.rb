@@ -10,7 +10,7 @@ class Team < ActiveRecord::Base
   end
 
   def played_matches
-    matches.where(status: true)
+    matches.where(status: true, knockout: false)
   end
 
   def won_matches
@@ -39,7 +39,7 @@ class Team < ActiveRecord::Base
 
   def update_score
     score = 0
-    matches.each do |match|
+    played_matches.each do |match|
       score += match.equal? ? 1 : (match.winner == self ? 3 : 0)
     end
     update_attributes(score: score)

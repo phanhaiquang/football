@@ -21,6 +21,7 @@ class Prediction < ActiveRecord::Base
 
   def validate_match
     errors.add(:match, ' started !!!') if match.started? && !APP_CONFIG["skip_validation"]
+    errors.add(:match, ' is in knockout stage!!! Must chose ONE winner!!!') if match.knockout? && (mainscore1 == mainscore2)
   end
 
   def locked?
@@ -36,7 +37,7 @@ class Prediction < ActiveRecord::Base
   end
 
   def score
-    win? ? 2 : ( subwin? ? 1 : 0 )
+    match.knockout? ? (win? ? 2 : 0) : (win? ? 2 : (subwin? ? 1 : 0))
   end
 
   def mainscores
@@ -44,7 +45,13 @@ class Prediction < ActiveRecord::Base
   end
 
   def win?
-    closed? && ((match.mainscore1 == mainscore1) && (match.mainscore2 == mainscore2))
+    if match.knockout?
+      closed? && (
+      ((match.mainscore1 - match.prior1 > match.mainscore2 - match.prior2) && (mainscore1 > mainscore2)) ||
+      ((match.mainscore1 - match.prior1 < match.mainscore2 - match.prior2) && (mainscore1 < mainscore2)))
+    else
+      closed? && ((match.mainscore1 == mainscore1) && (match.mainscore2 == mainscore2))
+    end
   end
 
   def subwin?
@@ -52,5 +59,9 @@ class Prediction < ActiveRecord::Base
       ( ((match.mainscore1 == match.mainscore2) && (mainscore1 == mainscore2)) ||
         ((match.mainscore1 >  match.mainscore2) && (mainscore1 >  mainscore2)) ||
         ((match.mainscore1 <  match.mainscore2) && (mainscore1 <  mainscore2)) ))
+  end
+
+  def winner_team
+    (mainscore1 > mainscore2) ? match.team1 : ((mainscore1 < mainscore2) ? match.team2 : nil)
   end
 end

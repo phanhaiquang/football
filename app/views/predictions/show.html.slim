@@ -8,8 +8,12 @@ table.table
     td= @prediction.user.name
 
   tr
-    td Main score
-    td= @prediction.mainscores
+    - if @prediction.match.knockout?
+      td Prediction team
+      td= @prediction.winner_team.name
+    - else
+      td Main score
+      td= @prediction.mainscores
 
 div.col-xs-12
   hr

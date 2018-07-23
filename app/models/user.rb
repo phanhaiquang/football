@@ -23,4 +23,8 @@ class User < ActiveRecord::Base
   def inactive?(cup)
     predictions_of_cup(cup).count == 0
   end
+  
+  def predictions_of_stage(cup, knockout)
+    predictions_of_cup(cup).select{|p| (p.match.knockout == knockout) && p.match.closed?}
+  end
 end

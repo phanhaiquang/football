@@ -11,13 +11,55 @@
     div.field.form-group
       = f.label :match_id, class: "form-left"
       = f.collection_select :match_id, predicable_matches(current_user), :id, :name, class: "form-right"
-    div.field.form-group
-      = f.label :mainscore1, class: "form-left"
+    #team1score.field.form-group
+      = f.label :mainscore1, id: "team1_name", class: "form-left"
       = f.number_field :mainscore1, class: "form-right"
-    div.field.form-group
-      = f.label :mainscore2, class: "form-left"
+    #team2score.field.form-group
+      = f.label :mainscore2, id: "team2_name", class: "form-left"
       = f.number_field :mainscore2, class: "form-right"
+    #teamselected.field
+      label.form-left Choose team
+      select id="teamoption" class="form-right"
     br
     div.field.form-group
       div.actions
         = f.submit 'Submit', class: 'btn btn-primary form-left', data: { disable_with: "Please wait..." }
+
+javascript:
+  var predicable_matches = #{{predicable_matches(current_user).map{|m| {"id"=>m.id, "team1_id"=>m.team1_id, "team2_id"=>m.team2_id, "knockout"=>m.knockout}}.to_json}};
+  var playing_teams = #{{Team.where(status: true).map{|t| {"id"=>t.id, "name"=>t.name}}.to_json}};
+  $('#prediction_match_id').change(function(){
+    $selected_value=$('#prediction_match_id option:selected').val();
+    $match = predicable_matches.find(x => x.id == $selected_value);
+    $team1_name = playing_teams.find(x => x.id == $match.team1_id).name;
+    $('#team1_name').text($team1_name);
+    $team2_name = playing_teams.find(x => x.id == $match.team2_id).name;
+    $('#team2_name').text($team2_name);
+    $('#teamoption').empty();
+    $('#teamoption').append(new Option($team1_name, 1, true, true));
+    $('#teamoption').append(new Option($team2_name, 2, false, false));
+    if ($match["knockout"] == true) {
+      $('#prediction_mainscore1').val(1);
+      $('#prediction_mainscore2').val(0);
+      $('#team1score').hide();
+      $('#team2score').hide();
+      $('#teamselected').show();
+    }
+    else {
+      $('#team1score').show();
+      $('#team2score').show();
+      $('#teamselected').hide();
+    }
+  });
+  $('#teamoption').change(function(){
+    $selected_value=$('#teamoption option:selected').val();
+    if ($selected_value == 1) {
+      $('#prediction_mainscore1').val(1);
+      $('#prediction_mainscore2').val(0);
+    }
+    else {
+      $('#prediction_mainscore1').val(0);
+      $('#prediction_mainscore2').val(1);
+    }
+  });
+  $('#prediction_match_id').change();

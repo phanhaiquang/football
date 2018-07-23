@@ -2,12 +2,21 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    admin_ids = Score.where(user_id: User.where(admin: true).ids).ids
-    inactive_ids = Score.where(user_id: User.select{|u| u.inactive?(params[:cup_id])}.map{|u| u.id}).ids
-    ids = Score.where(cup_id: params[:cup_id]).ids - admin_ids - inactive_ids
-    @userscores = Score.where(id: ids).order('score desc')
     @cup = Cup.find(params[:cup_id])
-    @matchs = @cup.matches
+    @stage = params[:stage]
+    admin_ids = Score.where(user_id: User.where(admin: true).ids).ids
+    if @stage == 'group'
+      inactive_ids = Score.where(user_id: User.select{|u| u.predictions_of_stage(@cup, false).count == 0}.map{|u| u.id}).ids
+      ids = Score.where(cup_id: @cup.id).ids - admin_ids - inactive_ids
+      @userscores = Score.where(id: ids).order('score desc nulls last')
+      @groupmatches = @cup.matches.where(knockout: false)
+    end
+    if @stage == 'knockout'
+      inactive_ids = Score.where(user_id: User.select{|u| u.predictions_of_stage(@cup, true).count == 0}.map{|u| u.id}).ids
+      ids = Score.where(cup_id: @cup.id).ids - admin_ids - inactive_ids
+      @userknockoutrewards = Score.where(id: ids).sort_by{ |u| [-u.knockout_profit] }
+      @knockoutmatches = @cup.matches.where(knockout: true)
+    end
   end
 
   def edit

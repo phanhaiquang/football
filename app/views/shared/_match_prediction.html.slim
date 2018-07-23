@@ -2,11 +2,9 @@ table.table
   tr
     th.col-xs-4 User
     th.col-xs-2 Prediction
-    th.col-xs-2 Score
-    th.col-xs-4
+    th.col-xs-6
   - predictions.each do |prediction|
     tr
       td = prediction.user.name
-      td = prediction.mainscores
       = render "shared/prediction_score", prediction: prediction
 

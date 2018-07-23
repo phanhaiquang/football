@@ -1,28 +1,57 @@
 h2 Detail result for each match
-- @layout_width = "#{400+100*@userscores.count}px;"
-table.table.table-hover.fixed-header width=@layout_width
-  thead
-    th.px300 Match
-    th.px100 Result
-    - @userscores.each do |userscore|
-      th.px100 =userscore.user.name
-  tbody
-    - @matchs.all.each do |match|
-      - if match.closed?
-        tr
-          td.px300 =render "shared/match_name", match: match
-          td.px100 =match.mainscores
-          - @userscores.each do |userscore|
-            - p = Prediction.find_by(match: match, user: userscore.user)
-            - if p.present?
-              = render "shared/prediction_score", prediction: p, tdclass: "px100"
-            - else
-              td.px100.not-available -
-  tr
-    td.px300
-    td.px100
-    - @userscores.each do |userscore|
-      td.col-xs-1.px100.user-score 
-        =userscore.score
-        span  | 
-        =userscore.reward
+- if @stage == 'group'
+  - @layout_width = "#{400+100*@userscores.count}px;"
+  table.table.table-hover.fixed-header width=@layout_width
+    thead
+      th.px300 Match
+      th.px100 Result
+      - @userscores.each do |userscore|
+        th.px100 =userscore.user.name
+    tbody
+      - @groupmatches.all.each do |match|
+        - if match.closed?
+          tr
+            td.px300 =render "shared/match_name", match: match
+            td.px100 =match.mainscores
+            - @userscores.each do |userscore|
+              - p = Prediction.find_by(match: match, user: userscore.user)
+              - if p.present?
+                = render "shared/prediction_score", prediction: p, tdclass: "px100"
+              - else
+                td.px100.not-available -
+    tr
+      td.px300
+      td.px100
+      - @userscores.each do |userscore|
+        td.col-xs-1.px100.user-score 
+          =userscore.score
+          span  | 
+          =userscore.reward
+- if @stage == 'knockout'
+  - @layout_width = "#{400+100*@userknockoutrewards.count}px;"
+  table.table.table-hover.fixed-header width=@layout_width
+    thead
+      th.px300 Match
+      th.px100 Result
+      - @userknockoutrewards.each do |u|
+        th.px100 =u.user.name
+    tbody
+      - @knockoutmatches.all.each do |match|
+        - if match.closed?
+          tr
+            td.px300 =render "shared/match_name", match: match
+            td.px100 =match.fullscores
+            - @userknockoutrewards.each do |u|
+              - p = Prediction.find_by(match: match, user: u.user)
+              - if p.present?
+                = render "shared/prediction_score", prediction: p, tdclass: "px100"
+              - else
+                td.px100.not-available -
+    tr
+      td.px300
+      td.px100
+      - @userknockoutrewards.each do |u|
+        td.col-xs-1.px100.user-score 
+          =u.knockout_profit
+          span  | 
+          =u.knockout_reward
