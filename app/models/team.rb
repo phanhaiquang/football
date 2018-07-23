@@ -44,4 +44,16 @@ class Team < ActiveRecord::Base
     end
     update_attributes(score: score)
   end
+
+  def update_status
+    group = Team.where(cup: cup, cup_group: cup_group).sort_by{ |t| [-t.score, t.goal_against-t.goal_for, -t.goal_for] }
+    next_stage_teams = group.first(2)
+    eliminated_teams = group.last(2)
+    next_stage_teams.each do |t|
+      t.update_attributes(status: true)
+    end
+    eliminated_teams.each do |t|
+      t.update_attributes(status: false)
+    end
+  end
 end

@@ -80,6 +80,12 @@ class Match < ActiveRecord::Base
   def update_teams_score
     team1.update_score
     team2.update_score
+    if team1.played_matches.count == 3
+      team1.update_status
+    end
+    if team2.played_matches.count == 3
+      team2.update_status
+    end
   end
 
   def update_predictions_reward
@@ -96,17 +102,29 @@ class Match < ActiveRecord::Base
   end
 
   def update_result
+    if team1.name == "South Korea"
+      home_team_name = "Korea Republic"
+    else
+      home_team_name = team1.name
+    end
+    if team2.name == "South Korea"
+      away_team_name = "Korea Republic"
+    else
+      away_team_name = team2.name
+    end
     uri = URI.parse("http://api.football-data.org/v1/competitions/"+cup.result_id.to_s+"/fixtures")
     http = Net::HTTP.new(uri.host, uri.port)
     resp = http.get(uri.request_uri)
-    data = JSON.parse(resp.body)
-    match_results = data['fixtures'].select{|m| (m['homeTeamName'] == team1.name && m['awayTeamName'] == team2.name)}
-    if match_results.count > 0
-      if match_results.last['status'] == 'IN_PLAY'
-        update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: false)
-      end
-      if match_results.last['status'] == 'FINISHED'
-        update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: true)
+    if resp.kind_of? Net::HTTPSuccess
+      data = JSON.parse(resp.body)
+      match_results = data['fixtures'].select{|m| (m['homeTeamName'] == home_team_name && m['awayTeamName'] == away_team_name)}
+      if match_results.count > 0
+        if match_results.last['status'] == 'IN_PLAY'
+          update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: false)
+        end
+        if match_results.last['status'] == 'FINISHED'
+          update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: true)
+        end
       end
     end
   end
