@@ -25,5 +25,14 @@ div.col-xs-6
       = f.label :end_date, class: "form-left"
       = f.date_select :end_date, class: "form-right"
     div.field.form-group
+      = f.label :result_id, class: "form-left"
+      = f.number_field :result_id, class: "form-right"
+    div.field.form-group
+      = f.label :reward_percent, class: "form-left"
+      = f.number_field :reward_percent, class: "form-right", step: 0.1
+    div.field.form-group
+      = f.label :save_reward, class: "form-left"
+      = f.number_field :save_reward, class: "form-right"
+    div.field.form-group
       div.actions
         = f.submit "Submit", class: "form-left btn btn-primary"

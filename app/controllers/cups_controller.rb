@@ -48,6 +48,6 @@ class CupsController < ApplicationController
     end
 
     def cup_params
-      params.require(:cup).permit(:name, :host, :logo, :start_date, :end_date)
+      params.require(:cup).permit(:name, :host, :logo, :start_date, :end_date, :result_id, :reward_percent, :save_reward)
     end
 end
