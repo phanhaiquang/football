@@ -40,4 +40,9 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.time_zone = 'Hanoi'
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.rails_logger = true
+  end
 end
