@@ -1,30 +1,31 @@
-h1 Listing Cups
-div.panel.panel-default
-  table.table.table-condensed
-    thead
-      tr
-        th.col-xs-1 #
-        th.col-xs-5 Cup
-        th.col-xs-1 Logo
-        th.col-xs-3 Start Time
-        th.col-xs-3 End Time
+.container
+  h1 Listing Cups
+  div.panel.panel-default
+    table.table.table-condensed
+      thead
+        tr
+          th.col-xs-1 #
+          th.col-xs-5 Cup
+          th.col-xs-1 Logo
+          th.col-xs-3 Start Time
+          th.col-xs-3 End Time
 
-div.div-table-content
-  table.table.table-hover.table-condensed
-    tbody
-      - @cups.each_with_index do |cup, index|
-        tr.clickable href="#{cup_path(cup)}"
-          td.col-xs-1 = index+1
-          td.col-xs-5 = cup.name
-          td.col-xs-1 = image_tag(cup.logo, class: "flag-icon")
-          td.col-xs-3 = cup.start_date
-          td.col-xs-3 = cup.end_date
-            - if can?(:destroy, cup)
-              = link_to 'Destroy', cup, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger btn-one-col'
-            - if can?(:edit, cup)
-              = link_to 'Edit', edit_cup_path(cup), class: 'btn btn-xs btn-warning btn-one-col btn-enabled'
+  div.div-table-content
+    table.table.table-hover.table-condensed
+      tbody
+        - @cups.each_with_index do |cup, index|
+          tr.clickable href="#{cup_path(cup)}"
+            td.col-xs-1 = index+1
+            td.col-xs-5 = cup.name
+            td.col-xs-1 = image_tag(cup.logo, class: "flag-icon")
+            td.col-xs-3 = cup.start_date
+            td.col-xs-3 = cup.end_date
+              - if can?(:destroy, cup)
+                = link_to 'Destroy', cup, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger btn-one-col'
+              - if can?(:edit, cup)
+                = link_to 'Edit', edit_cup_path(cup), class: 'btn btn-xs btn-warning btn-one-col btn-enabled'
 
-hr
+  hr
 
-- if can?(:create, Cup)
-  = link_to 'New Cup', new_cup_path, class: "btn btn-primary"
+  - if can?(:create, Cup)
+    = link_to 'New Cup', new_cup_path, class: "btn btn-primary"

@@ -1,45 +1,46 @@
-h2 Listing Teams For #{@cup.name}
+.container
+  h2 Listing Teams For #{@cup.name}
 
-div.panel.panel-default
-  table.table.table-condensed
-    thead
-      tr
-        th.col-xs-1 #
-        th.col-xs-2 Name
-        th.col-xs-1 Score
-        th.col-xs-1 Played
-        th.col-xs-1 Won
-        th.col-xs-1 Drew
-        th.col-xs-1 Loss
-        th.col-xs-1 Goal for
-        th.col-xs-1 Goal Against
-        th.col-xs-1 Status
-        th.col-xs-1 Group
-        th.col-xs-1 colspan="3"
+  div.panel.panel-default
+    table.table.table-condensed
+      thead
+        tr
+          th.col-xs-1 #
+          th.col-xs-2 Name
+          th.col-xs-1 Score
+          th.col-xs-1 Played
+          th.col-xs-1 Won
+          th.col-xs-1 Drew
+          th.col-xs-1 Loss
+          th.col-xs-1 Goal for
+          th.col-xs-1 Goal Against
+          th.col-xs-1 Status
+          th.col-xs-1 Group
+          th.col-xs-1 colspan="3"
 
-div.div-table-content
-  table.table.table-hover.table-condensed
-    tbody
-      - @teams.each_with_index do |team, index|
-        tr.clickable href="#{team_path(team)}"
-          td.col-xs-1 = index + 1
-          td.col-xs-2 = render("shared/team_name", team: team)
-          td.col-xs-1 = team.score
-          td.col-xs-1 = team.played_matches.count
-          td.col-xs-1 = team.won_matches.count
-          td.col-xs-1 = team.drew_matches.count
-          td.col-xs-1 = team.loss_matches.count
-          td.col-xs-1 = team.goal_for
-          td.col-xs-1 = team.goal_against
-          td class="col-xs-1 #{team.status ? "success" : "danger"}" = team.status ? "Playing" : "Stopped"
-          td.col-xs-1 = team.cup_group
-          td.col-xs-1.text-right
-            - if can?(:destroy, team)
-              = link_to 'Destroy', delete_team_path(team), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
-            - if can?(:edit, team)
-              = link_to 'Edit', edit_team_path(team), class: 'btn btn-xs btn-warning btn-one-col btn-enabled'
+  div.div-table-content
+    table.table.table-hover.table-condensed
+      tbody
+        - @teams.each_with_index do |team, index|
+          tr.clickable href="#{team_path(team)}"
+            td.col-xs-1 = index + 1
+            td.col-xs-2 = render("shared/team_name", team: team)
+            td.col-xs-1 = team.score
+            td.col-xs-1 = team.played_matches.count
+            td.col-xs-1 = team.won_matches.count
+            td.col-xs-1 = team.drew_matches.count
+            td.col-xs-1 = team.loss_matches.count
+            td.col-xs-1 = team.goal_for
+            td.col-xs-1 = team.goal_against
+            td class="col-xs-1 #{team.status ? "success" : "danger"}" = team.status ? "Playing" : "Stopped"
+            td.col-xs-1 = team.cup_group
+            td.col-xs-1.text-right
+              - if can?(:destroy, team)
+                = link_to 'Destroy', delete_team_path(team), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs btn-one-col'
+              - if can?(:edit, team)
+                = link_to 'Edit', edit_team_path(team), class: 'btn btn-xs btn-warning btn-one-col btn-enabled'
 
-hr
+  hr
 
-- if can?(:create, Team)
-  = link_to 'New Team', new_team_path(cup_id: @cup.id), class: 'btn btn-primary'
+  - if can?(:create, Team)
+    = link_to 'New Team', new_team_path(cup_id: @cup.id), class: 'btn btn-primary'

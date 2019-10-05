@@ -1,57 +1,58 @@
-h2 Match information
+.container
+  h2 Match information
 
-table.table
-  tr
-    th.col-xs-4 Match
-    th.col-xs-8 =render "shared/match_name", match: @match
-  tr
-    td Time
-    td= @match.time.to_s(:match)
-  tr
-    td Stage
-    td= @match.knockout? ? "Knockout" : "Group"
-  - if @match.started?
+  table.table
     tr
-      td Status
-      td= @match.closed? ? "Finished" : "Started"
-  tr
-    td Fee
-    td= @match.fee
-  tr
-    td Score
-    td= @match.fullscores
-  - if @match.prior1.present? && @match.prior2.present?
+      th.col-xs-4 Match
+      th.col-xs-8 =render "shared/match_name", match: @match
     tr
-      td Bet priority
-      td= @match.priorities
-  tr
-    td Number of Prediction(s)
-    td= @match.predictions.count
-  tr
-    td Predictions winner(s)
-    td= @match.prediction_winners_names
+      td Time
+      td= @match.time.to_s(:match)
+    tr
+      td Stage
+      td= @match.knockout? ? "Knockout" : "Group"
+    - if @match.started?
+      tr
+        td Status
+        td= @match.closed? ? "Finished" : "Started"
+    tr
+      td Fee
+      td= @match.fee
+    tr
+      td Score
+      td= @match.fullscores
+    - if @match.prior1.present? && @match.prior2.present?
+      tr
+        td Bet priority
+        td= @match.priorities
+    tr
+      td Number of Prediction(s)
+      td= @match.predictions.count
+    tr
+      td Predictions winner(s)
+      td= @match.prediction_winners_names
 
-- @predictions = @match.started? ? @match.predictions : @match.predictions.where(user: current_user)
-- if @predictions.count > 0
-  h2 Predictions
-  = render "shared/match_prediction", predictions: @predictions
+  - @predictions = @match.started? ? @match.predictions : @match.predictions.where(user: current_user)
+  - if @predictions.count > 0
+    h2 Predictions
+    = render "shared/match_prediction", predictions: @predictions
 
-hr
+  hr
 
-- @predictions = @match.predictions.where(user: current_user)
-- if @predictions.count > 0
-  - @prediction = @predictions.first
-  - if can?(:edit, @prediction)
-    = link_to 'Edit Prediction', edit_prediction_path(@prediction), class: "btn btn-primary"
+  - @predictions = @match.predictions.where(user: current_user)
+  - if @predictions.count > 0
+    - @prediction = @predictions.first
+    - if can?(:edit, @prediction)
+      = link_to 'Edit Prediction', edit_prediction_path(@prediction), class: "btn btn-primary"
+      | |
+  - if @predictions.count == 0
+    - if can?(:create, Prediction)
+      = link_to 'New Prediction', new_prediction_path(cup_id: @match.cup_id), class: 'btn btn-primary'
+      | |
+  - if can?(:create, Match)
+    = link_to 'New Match', new_match_path(cup_id: @match.cup_id), class: "btn btn-primary"
     | |
-- if @predictions.count == 0
-  - if can?(:create, Prediction)
-    = link_to 'New Prediction', new_prediction_path(cup_id: @match.cup_id), class: 'btn btn-primary'
+  - if can?(:edit, @match)
+    = link_to 'Edit', edit_match_path(@match), class: "btn btn-primary"
     | |
-- if can?(:create, Match)
-  = link_to 'New Match', new_match_path(cup_id: @match.cup_id), class: "btn btn-primary"
-  | |
-- if can?(:edit, @match)
-  = link_to 'Edit', edit_match_path(@match), class: "btn btn-primary"
-  | |
-= link_to 'Back', matches_path(cup_id: @match.cup_id), class: "btn btn-primary"
+  = link_to 'Back', matches_path(cup_id: @match.cup_id), class: "btn btn-primary"

@@ -1,58 +1,59 @@
-h2 Team information
+.container
+  h2 Team information
 
-table.table
-  tr
-    th.col-xs-4 Name 
-    th.col-xs-1 =render "shared/team_name", team: @team
-    th.col-xs-7 
-  tr
-    td Played match (P)
-    td= @team.played_matches.count
-  tr
-    td Won match (W)
-    td= @team.won_matches.count
-  tr
-    td Drew match (D)
-    td= @team.drew_matches.count
-  tr
-    td Loss match (L)
-    td= @team.loss_matches.count
-  tr
-    td Goal for (F)
-    td= @team.goal_for
-  tr
-    td Goal against (A)
-    td= @team.goal_against
-  tr
-    td Point 
-    td= @team.score
-  tr
-    td Status 
-    td class="#{@team.status ? "team-playing" : "team-stopped"}" = @team.status ? "Playing" : "Stopped"
-  tr
-    td Coach 
-    td= @team.coach
-
-hr
-
-h2 Your prediction
-
-table.table
-  tr
-    th.col-xs-2 Match
-    th.col-xs-2 Result
-    th.col-xs-2 Your prediction
-  - @team.matches.each do |match|
+  table.table
     tr
-      td = render "shared/match_name", match: match
-      td = match.fullscores
-      - if match.knockout?
-        td = p = match.prediction_of(current_user); p.winner_team.name if p.present?
-      - else
-        td = p = match.prediction_of(current_user); p.mainscores if p.present?
-hr
+      th.col-xs-4 Name
+      th.col-xs-1 =render "shared/team_name", team: @team
+      th.col-xs-7
+    tr
+      td Played match (P)
+      td= @team.played_matches.count
+    tr
+      td Won match (W)
+      td= @team.won_matches.count
+    tr
+      td Drew match (D)
+      td= @team.drew_matches.count
+    tr
+      td Loss match (L)
+      td= @team.loss_matches.count
+    tr
+      td Goal for (F)
+      td= @team.goal_for
+    tr
+      td Goal against (A)
+      td= @team.goal_against
+    tr
+      td Point
+      td= @team.score
+    tr
+      td Status
+      td class="#{@team.status ? "team-playing" : "team-stopped"}" = @team.status ? "Playing" : "Stopped"
+    tr
+      td Coach
+      td= @team.coach
 
-- if can?(:edit, @team)
-  = link_to 'Edit', edit_team_path(@team), class: "btn btn-primary"
-  | |
-= link_to 'Back', teams_path(cup_id: @team.cup_id), class: "btn btn-primary"
+  hr
+
+  h2 Your prediction
+
+  table.table
+    tr
+      th.col-xs-2 Match
+      th.col-xs-2 Result
+      th.col-xs-2 Your prediction
+    - @team.matches.each do |match|
+      tr
+        td = render "shared/match_name", match: match
+        td = match.fullscores
+        - if match.knockout?
+          td = p = match.prediction_of(current_user); p.winner_team.name if p.present?
+        - else
+          td = p = match.prediction_of(current_user); p.mainscores if p.present?
+  hr
+
+  - if can?(:edit, @team)
+    = link_to 'Edit', edit_team_path(@team), class: "btn btn-primary"
+    | |
+  = link_to 'Back', teams_path(cup_id: @team.cup_id), class: "btn btn-primary"

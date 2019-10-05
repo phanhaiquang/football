@@ -1,23 +1,24 @@
-table.table
-  tr
-    th  Match
-    th= render "shared/match_name", match: @prediction.match
+.container
+  table.table
+    tr
+      th  Match
+      th= render "shared/match_name", match: @prediction.match
 
-  tr
-    td User
-    td= @prediction.user.name
+    tr
+      td User
+      td= @prediction.user.name
 
-  tr
-    - if @prediction.match.knockout?
-      td Prediction team
-      td= @prediction.winner_team.name
-    - else
-      td Main score
-      td= @prediction.mainscores
+    tr
+      - if @prediction.match.knockout?
+        td Prediction team
+        td= @prediction.winner_team.name
+      - else
+        td Main score
+        td= @prediction.mainscores
 
-div.col-xs-12
-  hr
-  - if can?(:edit, @prediction)
-    = link_to 'Edit', edit_prediction_path(@prediction), class: "btn btn-primary"
-    | |
-  = link_to 'Back', predictions_path(cup_id: @prediction.cup_id), class: "btn btn-primary btn-warning"
+  div.col-xs-12
+    hr
+    - if can?(:edit, @prediction)
+      = link_to 'Edit', edit_prediction_path(@prediction), class: "btn btn-primary"
+      | |
+    = link_to 'Back', predictions_path(cup_id: @prediction.cup_id), class: "btn btn-primary btn-warning"

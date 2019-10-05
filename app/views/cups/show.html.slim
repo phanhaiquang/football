@@ -1,71 +1,72 @@
-h2 Cup information
+.container
+  h2 Cup information
 
-table.table
-  tr
-    th.col-xs-4 Name 
-    th.col-xs-4= @cup.name
-  tr
-    td Host
-    td= @cup.host
-  tr
-    td Logo
-    td= image_tag(@cup.logo, class: "flag-icon")
-  tr
-    td Start date
-    td= @cup.start_date
-  tr
-    td End date
-    td= @cup.end_date
+  table.table
+    tr
+      th.col-xs-4 Name
+      th.col-xs-4= @cup.name
+    tr
+      td Host
+      td= @cup.host
+    tr
+      td Logo
+      td= image_tag(@cup.logo, class: "flag-icon")
+    tr
+      td Start date
+      td= @cup.start_date
+    tr
+      td End date
+      td= @cup.end_date
 
-hr
+  hr
 
-- if @nextmatches.count > 0
-  div.panel.panel-default
-    table.table.table-cond:wensed
-      thead
-        tr
-          th.col-xs-3 Next Match(es)
-          th.col-xs-3 Time
-          th.col-xs-3 Bet Priority
-          th.col-xs-3 Your Prediction
-  div.div-table-content
-    table.table.table-hover.table-condensed
-      tbody
-        - @nextmatches.each do |match|
-          tr.clickable href="#{match_path(match.id)}"
-            td.col-xs-3 = render "shared/match_name", match: match
-            td.col-xs-3 = match.time.to_s(:match)
-            td.col-xs-3 = match.priorities
-            - if match.prediction_of(@current_user)
-              - if match.knockout?
-                td.col-xs-3 = match.prediction_of(@current_user).winner_team.name
+  - if @nextmatches.count > 0
+    div.panel.panel-default
+      table.table.table-cond:wensed
+        thead
+          tr
+            th.col-xs-3 Next Match(es)
+            th.col-xs-3 Time
+            th.col-xs-3 Bet Priority
+            th.col-xs-3 Your Prediction
+    div.div-table-content
+      table.table.table-hover.table-condensed
+        tbody
+          - @nextmatches.each do |match|
+            tr.clickable href="#{match_path(match.id)}"
+              td.col-xs-3 = render "shared/match_name", match: match
+              td.col-xs-3 = match.time.to_s(:match)
+              td.col-xs-3 = match.priorities
+              - if match.prediction_of(@current_user)
+                - if match.knockout?
+                  td.col-xs-3 = match.prediction_of(@current_user).winner_team.name
+                - else
+                  td.col-xs-3 = match.prediction_of(@current_user).mainscores
               - else
-                td.col-xs-3 = match.prediction_of(@current_user).mainscores
-            - else
-              td.col-xs-3 Not available
+                td.col-xs-3 Not available
 
-- if @prematches.count > 0
-  div.panel.panel-default
-    table.table.table-cond:wensed
-      thead
-        tr
-          th.col-xs-2 Previous Match(es)
-          th.col-xs-1 Time
-          th.col-xs-1 Status
-          th.col-xs-1 Score
-          th.col-xs-2 Prediction winner(s)
-  div.div-table-content
-    table.table.table-hover.table-condensed
-      tbody
-        - @prematches.each do |match|
-          tr.clickable href="#{match_path(match.id)}"
-            td.col-xs-2 = render "shared/match_name", match: match
-            td.col-xs-1 = match.time.to_s(:match)
-            td.col-xs-1 = match.human_status
-            td.col-xs-1 = match.fullscores
-            td.col-xs-2 = match.prediction_winners_names
+  - if @prematches.count > 0
+    div.panel.panel-default
+      table.table.table-cond:wensed
+        thead
+          tr
+            th.col-xs-2 Previous Match(es)
+            th.col-xs-1 Time
+            th.col-xs-1 Status
+            th.col-xs-1 Score
+            th.col-xs-2 Prediction winner(s)
+    div.div-table-content
+      table.table.table-hover.table-condensed
+        tbody
+          - @prematches.each do |match|
+            tr.clickable href="#{match_path(match.id)}"
+              td.col-xs-2 = render "shared/match_name", match: match
+              td.col-xs-1 = match.time.to_s(:match)
+              td.col-xs-1 = match.human_status
+              td.col-xs-1 = match.fullscores
+              td.col-xs-2 = match.prediction_winners_names
 
-- if can?(:edit, @cup)
-  = link_to 'Edit', edit_cup_path(@cup), class: "btn btn-primary"
-  |  | 
-= link_to 'Back', cups_path, class: "btn btn-primary"
+  - if can?(:edit, @cup)
+    = link_to 'Edit', edit_cup_path(@cup), class: "btn btn-primary"
+    |  |
+  = link_to 'Back', cups_path, class: "btn btn-primary"
