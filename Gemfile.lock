@@ -46,9 +46,9 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     builder (3.2.2)
-    bullet (5.8.0)
+    bullet (5.7.6)
       activesupport (>= 3.0.0)
-      uniform_notifier (~> 1.11)
+      uniform_notifier (~> 1.11.0)
     byebug (9.0.5)
     cancancan (1.14.0)
     coffee-rails (4.1.1)
@@ -176,7 +176,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.0)
       execjs (>= 0.3.0, < 3)
-    uniform_notifier (1.12.0)
+    uniform_notifier (1.11.0)
     warden (1.2.3)
       rack (>= 1.0)
     web-console (2.3.0)
@@ -190,7 +190,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass
-  bullet (~> 5.7)
+  bullet (~> 5.7.6)
   byebug
   cancancan
   coffee-rails (~> 4.1.0)
