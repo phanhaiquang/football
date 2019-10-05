@@ -19,7 +19,7 @@ class Cup < ActiveRecord::Base
   end
 
   def update_result
-    matches.select{|match| (match.started? && !match.closed?)}.each do |m|
+    matches.includes([:team1, :team2]).select{|match| (match.started? && !match.closed?)}.each do |m|
       m.update_result
     end
   end
