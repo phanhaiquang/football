@@ -31,5 +31,6 @@ end
 
 group :development do
   gem 'seed_dump'
+  gem 'bullet', '~> 5.7'
 end
 
