@@ -11,7 +11,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'devise', '3.5.2'
+gem 'devise', '4.7.1'
 gem 'slim', '~> 3.0'
 gem 'bootstrap-sass'
 gem 'cancancan'
