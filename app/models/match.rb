@@ -189,34 +189,19 @@ class Match < ActiveRecord::Base
     else
       away_team_name = team2.name
     end
-    uri = URI.parse("http://api.football-data.org/v1/competitions/"+cup.result_id.to_s+"/fixtures")
-    http = Net::HTTP.new(uri.host, uri.port)
-    resp = http.get(uri.request_uri)
+    uri = URI.parse("http://api.football-data.org/v2/competitions/"+cup.result_id.to_s+"/matches")
+    http = Net::HTTP.new(uri.host, uri.port).start
+    request = Net::HTTP::Get.new(uri.request_uri, {"X-Auth-Token"=>"10c5426eee774230bd65df6b009c6ac5"})
+    resp = http.request(request)
     if resp.kind_of? Net::HTTPSuccess
       data = JSON.parse(resp.body)
-      match_results = data['fixtures'].select{|m| (m['homeTeamName'] == home_team_name && m['awayTeamName'] == away_team_name)}
+      match_results = data['matches'].select{|m| (m['homeTeam']['name'] == home_team_name && m['awayTeam']['name'] == away_team_name)}
       if match_results.count > 0
         if match_results.last['status'] == 'IN_PLAY'
-          if match_results.last['result'].key?('extraTime')
-            if match_results.last['result'].key?('penaltyShootout')
-              update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], subscore1: match_results.last['result']['extraTime']['goalsHomeTeam'], subscore2: match_results.last['result']['extraTime']['goalsAwayTeam'], penscore1: match_results.last['result']['penaltyShootout']['goalsHomeTeam'], penscore2: match_results.last['result']['penaltyShootout']['goalsAwayTeam'], status: false)
-            else
-              update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], subscore1: match_results.last['result']['extraTime']['goalsHomeTeam'], subscore2: match_results.last['result']['extraTime']['goalsAwayTeam'], status: false)
-            end
-          else
-            update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: false)
-          end
+          update_attributes(mainscore1: match_results.last['score']['fullTime']['homeTeam'], mainscore2: match_results.last['score']['fullTime']['awayTeam'], subscore1: match_results.last['score']['extraTime']['homeTeam'], subscore2: match_results.last['score']['extraTime']['awayTeam'], penscore1: match_results.last['score']['penalties']['homeTeam'], penscore2: match_results.last['score']['penalties']['awayTeam'], status: false)
         end
         if match_results.last['status'] == 'FINISHED'
-          if match_results.last['result'].key?('extraTime')
-            if match_results.last['result'].key?('penaltyShootout')
-              update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], subscore1: match_results.last['result']['extraTime']['goalsHomeTeam'], subscore2: match_results.last['result']['extraTime']['goalsAwayTeam'], penscore1: match_results.last['result']['penaltyShootout']['goalsHomeTeam'], penscore2: match_results.last['result']['penaltyShootout']['goalsAwayTeam'], status: true)
-            else
-              update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], subscore1: match_results.last['result']['extraTime']['goalsHomeTeam'], subscore2: match_results.last['result']['extraTime']['goalsAwayTeam'], status: true)
-            end
-          else
-            update_attributes(mainscore1: match_results.last['result']['goalsHomeTeam'], mainscore2: match_results.last['result']['goalsAwayTeam'], status: true)
-          end
+          update_attributes(mainscore1: match_results.last['score']['fullTime']['homeTeam'], mainscore2: match_results.last['score']['fullTime']['awayTeam'], subscore1: match_results.last['score']['extraTime']['homeTeam'], subscore2: match_results.last['score']['extraTime']['awayTeam'], penscore1: match_results.last['score']['penalties']['homeTeam'], penscore2: match_results.last['score']['penalties']['awayTeam'], status: true)
         end
       end
     end

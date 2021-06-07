@@ -20,6 +20,7 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params.merge(cup_id: @cup.id))
+    @team.score = 0
 
     if @team.save
       redirect_to @team, notice: 'Team was successfully created.'
@@ -52,6 +53,6 @@ class TeamsController < ApplicationController
     end
 
     def team_params
-      params.require(:team).permit(:name, :score, :coach, :status)
+      params.require(:team).permit(:name, :score, :coach, :status, :cup_group)
     end
 end
