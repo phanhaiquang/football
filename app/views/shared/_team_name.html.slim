@@ -3,6 +3,7 @@
   div class="flag-icon flag-icon-#{country.alpha2.downcase}"
 = image_tag("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Flag_of_Northern_Ireland.svg/46px-Flag_of_Northern_Ireland.svg.png", class: "flag-icon") if team.name == "Northern Ireland"
 = image_tag("https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Flag_of_Ireland.svg/46px-Flag_of_Ireland.svg.png", class: "flag-icon") if team.name == "Republic of Ireland"
-= image_tag("https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Flag_of_Wales_2.svg/46px-Flag_of_Wales_2.svg.png", class: "flag-icon") if team.name == "Wales"
+= image_tag("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_Wales_%281959%E2%80%93present%29.svg/46px-Flag_of_Wales_%281959%E2%80%93present%29.svg.png", class: "flag-icon") if team.name == "Wales"
 = image_tag("https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Flag_of_England.svg/46px-Flag_of_England.svg.png", class: "flag-icon") if team.name == "England"
+= image_tag("https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/46px-Flag_of_Scotland.svg.png", class: "flag-icon") if team.name == "Scotland"
 span =" " + team.name
