@@ -179,6 +179,7 @@ class Match < ActiveRecord::Base
   end
 
   def update_result
+    require 'net/http'
     if team1.name == "South Korea"
       home_team_name = "Korea Republic"
     else
