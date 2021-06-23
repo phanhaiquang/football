@@ -20,7 +20,7 @@ table.table
   tr
     td Score
     td= @match.fullscores
-  - if @match.prior1.present? && @match.prior2.present?
+  - if @match.prior1.present? || @match.prior2.present?
     tr
       td Bet priority
       td= @match.priorities

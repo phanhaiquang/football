@@ -13,7 +13,7 @@ class Match < ActiveRecord::Base
   end
 
   def name
-    team1.name + (prior1.nil? ? '' : "("+prior1.to_s+")") + ' vs ' + team2.name + (prior2.nil? ? '' : "("+prior2.to_s+")") + " (#{time.to_s(:match)})"
+    team1.name + ((prior1.nil? || prior1== 0) ? '' : "(-"+prior1.to_s+")") + ' vs ' + team2.name + ((prior2.nil? || prior2 == 0) ? '' : "(-"+prior2.to_s+")") + " (#{time.to_s(:match)})"
   end
 
   def short_name
@@ -42,13 +42,21 @@ class Match < ActiveRecord::Base
 
   def priorities
     if !prior1.nil? && prior1 > 0
-      "#{team1.name} #{prior1}"
+      "#{team1.name} -#{prior1} ~> #{rates}"
     else 
       if !prior2.nil? &&prior2 > 0 
-        "#{team2.name} #{prior2}"
+        "#{team2.name} -#{prior2} ~> #{rates}"
       else
         "-"
       end
+    end
+  end
+
+  def rates
+    if knockout?
+      "Live Prediction Counter: #{team1.name}(#{predictions.select{|p| p.winner_team == team1}.count}) - (#{predictions.select{|p| p.winner_team == team2}.count})#{team2.name}"
+    else
+      ""
     end
   end
 
