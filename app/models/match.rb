@@ -41,13 +41,17 @@ class Match < ActiveRecord::Base
   end
 
   def priorities
-    if !prior1.nil? && prior1 > 0
-      "#{team1.name} -#{prior1} ~> #{rates}"
+    if !knockout?
+      "-"
     else 
-      if !prior2.nil? &&prior2 > 0 
-        "#{team2.name} -#{prior2} ~> #{rates}"
-      else
-        "-"
+      if !prior1.nil? && prior1 > 0
+        "#{team1.name} -#{prior1} ~> #{rates}"
+      else 
+        if !prior2.nil? && prior2 > 0 
+          "#{team2.name} -#{prior2} ~> #{rates}"
+        else
+          "- ~> #{rates}"
+        end
       end
     end
   end
