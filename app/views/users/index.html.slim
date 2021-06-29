@@ -8,7 +8,7 @@ h2 Detail result for each match
       - @userscores.each do |userscore|
         th.px100 =userscore.user.name
     tbody
-      - @groupmatches.all.each do |match|
+      - @groupmatches.all.reverse.each do |match|
         - if match.closed?
           tr
             td.px300 =render "shared/match_name", match: match
@@ -36,7 +36,7 @@ h2 Detail result for each match
       - @userknockoutrewards.each do |u|
         th.px100 =u.user.name
     tbody
-      - @knockoutmatches.all.each do |match|
+      - @knockoutmatches.all.reverse.each do |match|
         - if match.closed?
           tr
             td.px300 =render "shared/match_name", match: match
