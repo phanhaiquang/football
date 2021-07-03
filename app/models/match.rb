@@ -58,7 +58,7 @@ class Match < ActiveRecord::Base
 
   def rates
     if knockout?
-      "Live Prediction Counter: #{team1.name}(#{predictions.select{|p| p.winner_team == team1}.count}) - (#{predictions.select{|p| p.winner_team == team2}.count})#{team2.name}"
+      "LPC: #{team1.name}(#{predictions.select{|p| p.winner_team == team1}.count}) - (#{predictions.select{|p| p.winner_team == team2}.count})#{team2.name}"
     else
       ""
     end
@@ -165,8 +165,12 @@ class Match < ActiveRecord::Base
         end
       else
         predictions.all.each do |prediction|
-          if prediction.win?
+          if prediction.halfwin?
+            prediction.update_attributes(reward: ((fee*predictions.count/2+cup.save_reward)/prediction_winners_count).round + fee/2)  
+          elsif prediction.win?
             prediction.update_attributes(reward: ((fee*predictions.count+cup.save_reward)/prediction_winners_count).round)
+          elsif prediction.halflose?
+            prediction.update_attributes(reward: fee/2)
           else
             prediction.update_attributes(reward: 0)
           end
@@ -213,8 +217,8 @@ class Match < ActiveRecord::Base
         last_m = match_results.last
         ms1 = last_m['score']['fullTime']['homeTeam'].nil? ? 0 : last_m['score']['fullTime']['homeTeam'] - (last_m['score']['extraTime']['homeTeam'].nil? ? 0 : last_m['score']['extraTime']['homeTeam']) - (last_m['score']['penalties']['homeTeam'].nil? ? 0 : last_m['score']['penalties']['homeTeam'])
         ms2 = last_m['score']['fullTime']['awayTeam'].nil? ? 0 : last_m['score']['fullTime']['awayTeam'] - (last_m['score']['extraTime']['awayTeam'].nil? ? 0 : last_m['score']['extraTime']['awayTeam']) - (last_m['score']['penalties']['awayTeam'].nil? ? 0 : last_m['score']['penalties']['awayTeam'])
-        ss1 = ms1 + (last_m['score']['extraTime']['homeTeam'].nil? ? 0 : last_m['score']['extraTime']['homeTeam'])
-        ss2 = ms2 + (last_m['score']['extraTime']['awayTeam'].nil? ? 0 : last_m['score']['extraTime']['awayTeam'])
+        ss1 = last_m['score']['extraTime']['homeTeam'].nil? ? nil : (ms1 + last_m['score']['extraTime']['homeTeam'])
+        ss2 = last_m['score']['extraTime']['awayTeam'].nil? ? nil : (ms2 + last_m['score']['extraTime']['awayTeam'])
         if last_m['status'] == 'IN_PLAY'
           update_attributes(mainscore1: ms1, mainscore2: ms2, subscore1: ss1, subscore2: ss2, penscore1: match_results.last['score']['penalties']['homeTeam'], penscore2: match_results.last['score']['penalties']['awayTeam'], status: false)
         end

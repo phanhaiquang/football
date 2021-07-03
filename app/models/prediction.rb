@@ -61,6 +61,22 @@ class Prediction < ActiveRecord::Base
         ((match.mainscore1 <  match.mainscore2) && (mainscore1 <  mainscore2)) ))
   end
 
+  def halfwin?
+    if match.knockout?
+      closed? && win? && (((match.mainscore1 - match.prior1) - (match.mainscore2 - match.prior2)).abs == 0.25)
+    else
+      false
+    end
+  end
+
+  def halflose?
+    if match.knockout?
+      closed? && !win? && (((match.mainscore1 - match.prior1) - (match.mainscore2 - match.prior2)).abs == 0.25)
+    else
+      false
+    end
+  end
+
   def winner_team
     (mainscore1 > mainscore2) ? match.team1 : ((mainscore1 < mainscore2) ? match.team2 : nil)
   end
