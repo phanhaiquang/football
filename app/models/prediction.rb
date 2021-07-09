@@ -46,9 +46,19 @@ class Prediction < ActiveRecord::Base
 
   def win?
     if match.knockout?
-      closed? && (
-      ((match.mainscore1 - match.prior1 > match.mainscore2 - match.prior2) && (mainscore1 > mainscore2)) ||
-      ((match.mainscore1 - match.prior1 < match.mainscore2 - match.prior2) && (mainscore1 < mainscore2)))
+      if match.special_final?
+        closed? && (
+        ((match.mainscore1 - match.prior1 > match.mainscore2 - match.prior2) && (mainscore1 > mainscore2)) ||
+        ((match.mainscore1 - match.prior1 < match.mainscore2 - match.prior2) && (mainscore1 < mainscore2)) ||
+        (!match.subscore1.nil? && !match.subscore2.nil? && (match.subscore1 - match.prior1 > match.subscore2 - match.prior2) && (mainscore1 > mainscore2)) ||
+        (!match.subscore1.nil? && !match.subscore2.nil? && (match.subscore1 - match.prior1 < match.subscore2 - match.prior2) && (mainscore1 < mainscore2)) ||
+        (!match.penscore1.nil? && !match.penscore2.nil? && (match.penscore1 - match.prior1 > match.penscore2 - match.prior2) && (mainscore1 > mainscore2)) ||
+        (!match.penscore1.nil? && !match.penscore2.nil? && (match.penscore1 - match.prior1 < match.penscore2 - match.prior2) && (mainscore1 < mainscore2)))
+      else
+        closed? && (
+        ((match.mainscore1 - match.prior1 > match.mainscore2 - match.prior2) && (mainscore1 > mainscore2)) ||
+        ((match.mainscore1 - match.prior1 < match.mainscore2 - match.prior2) && (mainscore1 < mainscore2)))
+      end
     else
       closed? && ((match.mainscore1 == mainscore1) && (match.mainscore2 == mainscore2))
     end
