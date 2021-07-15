@@ -69,7 +69,8 @@ class MatchesController < ApplicationController
         :knockout,
         :prior1,
         :prior2,
-        :fee
+        :fee,
+        :special_final
       )
     end
 end
