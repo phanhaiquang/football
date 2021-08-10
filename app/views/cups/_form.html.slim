@@ -25,6 +25,9 @@ div.col-xs-6
       = f.label :end_date, class: "form-left"
       = f.date_select :end_date, class: "form-right"
     div.field.form-group
+      = f.label "Type", class: "form-left"
+      = f.select :is_league, [['Cup', false], ['League', true]], class: "form-right"
+    div.field.form-group
       = f.label :result_id, class: "form-left"
       = f.number_field :result_id, class: "form-right"
     div.field.form-group
