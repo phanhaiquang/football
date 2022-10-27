@@ -11,23 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210709144029) do
+ActiveRecord::Schema.define(version: 20210810154955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "cups", force: :cascade do |t|
-    t.string   "name"
-    t.string   "host"
-    t.string   "logo"
-    t.date     "start_date"
-    t.date     "end_date"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "result_id"
-    t.float    "reward_percent"
-    t.integer  "save_reward"
-  end
+# Could not dump table "cups" because of following FrozenError
+#   can't modify frozen String: "false"
 
 # Could not dump table "matches" because of following FrozenError
 #   can't modify frozen String: "false"

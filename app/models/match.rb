@@ -144,24 +144,32 @@ class Match < ActiveRecord::Base
     if !knockout?
       team1.update_score
       team2.update_score
-      if team1.played_matches.count == 3
+      if team1.played_matches.count == 3 && !cup.is_league?
         team1.update_status
       end
-      if team2.played_matches.count == 3
+      if team2.played_matches.count == 3 && !cup.is_league?
         team2.update_status
       end
     else
-      winner.update_attributes(status: true)
-      looser.update_attributes(status: false)
+      if !cup.is_league?
+        winner.update_attributes(status: true)
+        looser.update_attributes(status: false)
+      end
     end
   end
 
   def update_predictions_reward
     if knockout?
       if prediction_winners_count == 0
-        cup.update_attributes(save_reward: fee*predictions.count)
-        predictions.all.each do |prediction|
-          prediction.update_attributes(reward: 0)
+        if cup.is_league?
+          predictions.all.each do |prediction|
+            prediction.update_attributes(reward: fee)
+          end
+        else
+          cup.update_attributes(save_reward: fee*predictions.count)
+          predictions.all.each do |prediction|
+            prediction.update_attributes(reward: 0)
+          end
         end
       else
         predictions.all.each do |prediction|
@@ -208,7 +216,7 @@ class Match < ActiveRecord::Base
     end
     uri = URI.parse("http://api.football-data.org/v2/competitions/"+cup.result_id.to_s+"/matches?dateFrom="+Date.yesterday.strftime("%Y-%m-%d")+"&dateTo="+Date.tomorrow.strftime("%Y-%m-%d"))
     http = Net::HTTP.new(uri.host, uri.port).start
-    request = Net::HTTP::Get.new(uri.request_uri, {"X-Auth-Token"=>"10c5426eee774230bd65df6b009c6ac5"})
+    request = Net::HTTP::Get.new(uri.request_uri, {"X-Auth-Token"=>ENV['PG_API_KEY']})
     resp = http.request(request)
     if resp.kind_of? Net::HTTPSuccess
       data = JSON.parse(resp.body)

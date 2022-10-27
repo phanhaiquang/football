@@ -16,6 +16,9 @@ table.table
   tr
     td End date
     td= @cup.end_date
+  tr
+    td Type
+    td= @cup.is_league? ? "League" : "Cup"
 
 hr
 

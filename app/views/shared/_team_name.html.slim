@@ -6,4 +6,5 @@
 = image_tag("wales_flag.png", class: "flag-icon") if team.name == "Wales"
 = image_tag("england_flag.png", class: "flag-icon") if team.name == "England"
 = image_tag("scotland_flag.png", class: "flag-icon") if team.name == "Scotland"
+= image_tag(team.logourl, class: "flag-icon") if team.logourl != ""
 span =" " + team.name

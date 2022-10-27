@@ -1,5 +1,6 @@
 class Team < ActiveRecord::Base
   belongs_to :cup
+  before_save :set_logourl
 
   def matches
     Match.where(cup: cup).where("team1_id = ? OR team2_id = ?", self, self)
@@ -56,4 +57,29 @@ class Team < ActiveRecord::Base
       t.update_attributes(status: false)
     end
   end
+
+  private
+    def set_logourl
+      self.logourl = get_logourl
+      true
+    end
+
+    def get_logourl
+      require 'net/http'
+      uri = URI.parse("http://api.football-data.org/v2/competitions/"+cup.result_id.to_s+"/teams")
+      http = Net::HTTP.new(uri.host, uri.port).start
+      request = Net::HTTP::Get.new(uri.request_uri, {"X-Auth-Token"=>ENV['PG_API_KEY']})
+      resp = http.request(request)
+      if resp.kind_of? Net::HTTPSuccess
+        data = JSON.parse(resp.body)
+        teams = data['teams'].select{|m| (m['name'] == name)}
+        if teams.count > 0
+          teams.last['crestUrl']
+        else
+          ''
+        end
+      else
+        ''
+      end
+    end
 end
